@@ -1,0 +1,20 @@
+﻿@model IEnumerable<StudentSystem.Clients.Mvc.ViewModels.Course.CourseViewModel>
+
+@(Html.ActionLink<CourseController>("Add", c => c.Create()))
+
+@foreach (var course in Model)
+{
+    <div>
+        <span>
+            @course.Name
+        </span>
+
+        <span>
+            @(Html.ActionLink<CourseController>("Edit", c => c.Edit(course.Id)))
+        </span>
+
+        <span>
+            @(Html.ActionLink<CourseController>("Delete", c => c.Delete(course.Id)))
+        </span>
+    </div>
+}

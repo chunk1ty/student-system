@@ -40,7 +40,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CourseService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\StudentSystem.Common\StudentSystem.Common.csproj">
+      <Project>{D446FFE2-72EB-4317-ABCF-10586384CBE0}</Project>
+      <Name>StudentSystem.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\StudentSystem.Data.Entities\StudentSystem.Data.Entities.csproj">
+      <Project>{3D0E29A1-2862-41BB-9E03-DFA227B2C024}</Project>
+      <Name>StudentSystem.Data.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\StudentSystem.Data.Services.Contracts\StudentSystem.Data.Services.Contracts.csproj">
+      <Project>{32184320-2DD5-468A-94B3-819972500D68}</Project>
+      <Name>StudentSystem.Data.Services.Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\StudentSystem.Data\StudentSystem.Data.csproj">
+      <Project>{6A0E0C45-5DEB-4D8D-A9F8-83FD7E25FF8D}</Project>
+      <Name>StudentSystem.Data</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

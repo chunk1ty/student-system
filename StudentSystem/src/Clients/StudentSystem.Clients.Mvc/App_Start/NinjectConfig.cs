@@ -9,9 +9,12 @@ using Ninject.Web.Common;
 using Ninject.Web.Common.WebHost;
 
 using StudentSystem.Clients.Mvc;
+using StudentSystem.Clients.Mvc.Services;
 using StudentSystem.Data;
 using StudentSystem.Data.Contracts;
 using StudentSystem.Data.Identity;
+using StudentSystem.Data.Services;
+using StudentSystem.Data.Services.Contracts;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(NinjectConfig), "Start")]
 [assembly: WebActivatorEx.ApplicationShutdownMethod(typeof(NinjectConfig), "Stop")]
@@ -73,6 +76,8 @@ namespace StudentSystem.Clients.Mvc
             kernel.Bind<IIdentityUserManagerService>().ToMethod(_ => HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>());
 
             kernel.Bind<IAuthenticationService>().To<AuthenticationService>();
+            kernel.Bind<ICourseService>().To<CourseService>();
+            kernel.Bind<IMappingService>().To<MappingService>();
         }
 
         private static void RegisterDataModule(IKernel kernel)

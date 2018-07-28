@@ -45,6 +45,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=6.0.2.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\AutoMapper.6.0.2\lib\net45\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="Castle.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Castle.Core.4.2.0\lib\net45\Castle.Core.dll</HintPath>
     </Reference>
@@ -216,6 +219,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\AutoMapperConfig.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\DbConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -224,12 +228,17 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\ViewEngineConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CourseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Services\ICustomMappings.cs" />
+    <Compile Include="Services\IMap.cs" />
+    <Compile Include="Services\MappingService.cs" />
+    <Compile Include="ViewModels\AccountViewModels.cs" />
+    <Compile Include="ViewModels\Course\CourseAddViewModel.cs" />
+    <Compile Include="ViewModels\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -292,6 +301,9 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Course\Index.cshtml" />
+    <Content Include="Views\Course\Create.cshtml" />
+    <Content Include="Views\Course\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -318,9 +330,21 @@
       <Project>{A05F37DD-02DE-4893-8887-09612F9C8655}</Project>
       <Name>StudentSystem.Data.Identity</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Data\StudentSystem.Data.Services.Contracts\StudentSystem.Data.Services.Contracts.csproj">
+      <Project>{32184320-2DD5-468A-94B3-819972500D68}</Project>
+      <Name>StudentSystem.Data.Services.Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Data\StudentSystem.Data.Services\StudentSystem.Data.Services.csproj">
+      <Project>{3126E786-F4CA-47F8-AEA3-EE359FE63FEA}</Project>
+      <Name>StudentSystem.Data.Services</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Data\StudentSystem.Data\StudentSystem.Data.csproj">
       <Project>{6A0E0C45-5DEB-4D8D-A9F8-83FD7E25FF8D}</Project>
       <Name>StudentSystem.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\StudentSystem.Common\StudentSystem.Common.csproj">
+      <Project>{D446FFE2-72EB-4317-ABCF-10586384CBE0}</Project>
+      <Name>StudentSystem.Common</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

@@ -10,6 +10,7 @@ namespace StudentSystem.Clients.Mvc
         protected void Application_Start()
         {
             ViewEngineConfig.RegisterViewEngine();
+            AutoMapperConfig.RegisterAutomapper();
             DbConfig.RegisterDb();
            
             AreaRegistration.RegisterAllAreas();
