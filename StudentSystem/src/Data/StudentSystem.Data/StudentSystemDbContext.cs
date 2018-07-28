@@ -32,7 +32,6 @@ namespace StudentSystem.Data
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<Student>().ToTable("Students");
-
             modelBuilder.Entity<Student>()
                 .Ignore(x => x.EmailConfirmed)
                 .Ignore(x => x.PhoneNumber)
