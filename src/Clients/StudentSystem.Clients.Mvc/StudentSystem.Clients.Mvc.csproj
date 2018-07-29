@@ -313,6 +313,10 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Data\StudentSystem.Data.Contracts\StudentSystem.Data.Contracts.csproj">
+      <Project>{FDD593E3-AD31-4E23-96DD-431D45DBC403}</Project>
+      <Name>StudentSystem.Data.Contracts</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Data\StudentSystem.Data.Entities\StudentSystem.Data.Entities.csproj">
       <Project>{3D0E29A1-2862-41BB-9E03-DFA227B2C024}</Project>
       <Name>StudentSystem.Data.Entities</Name>

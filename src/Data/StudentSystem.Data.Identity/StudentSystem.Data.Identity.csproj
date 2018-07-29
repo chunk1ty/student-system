@@ -77,6 +77,7 @@
     <Compile Include="ApplicationSignInManager.cs" />
     <Compile Include="ApplicationUserManager.cs" />
     <Compile Include="AuthenticationService.cs" />
+    <Compile Include="IAuthenticationService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -8,13 +8,6 @@ using StudentSystem.Data.Entities;
 
 namespace StudentSystem.Data.Identity
 {
-    public interface IAuthenticationService
-    {
-        Task<IdentityResult> CreateAccountAsync(string email, string password);
-
-        Task<SignInStatus> LogIn(string email, string password, bool rememberMe);
-    }
-
     public class AuthenticationService : IAuthenticationService
     {
         private readonly IIdentityUserManagerService _identityUserManagerService;

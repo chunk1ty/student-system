@@ -12,10 +12,10 @@ namespace StudentSystem.Data.Services
 {
     public class CourseService : ICourseService
     {
-        private readonly IEntityFrameworkGenericRepository<Course> _courseRepository;
+        private readonly ICourseRepository _courseRepository;
         private readonly IUnitOfWork _unitOfWork;
 
-        public CourseService(IEntityFrameworkGenericRepository<Course> courseRepository, IUnitOfWork unitOfWork)
+        public CourseService(ICourseRepository courseRepository, IUnitOfWork unitOfWork)
         {
             _courseRepository = courseRepository;
             _unitOfWork = unitOfWork;

@@ -33,6 +33,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Clients", "Clients", "{6C65
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudentSystem.Clients.Mvc.Tests", "test\Unit\Clients\StudentSystem.Clients.Mvc.Tests\StudentSystem.Clients.Mvc.Tests.csproj", "{7EFBB0F6-168A-47AF-A546-2F0C37B97840}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudentSystem.Data.Contracts", "src\Data\StudentSystem.Data.Contracts\StudentSystem.Data.Contracts.csproj", "{FDD593E3-AD31-4E23-96DD-431D45DBC403}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -71,6 +73,10 @@ Global
 		{7EFBB0F6-168A-47AF-A546-2F0C37B97840}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7EFBB0F6-168A-47AF-A546-2F0C37B97840}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7EFBB0F6-168A-47AF-A546-2F0C37B97840}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FDD593E3-AD31-4E23-96DD-431D45DBC403}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FDD593E3-AD31-4E23-96DD-431D45DBC403}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FDD593E3-AD31-4E23-96DD-431D45DBC403}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FDD593E3-AD31-4E23-96DD-431D45DBC403}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -89,6 +95,7 @@ Global
 		{D446FFE2-72EB-4317-ABCF-10586384CBE0} = {C26FEBC0-AEEC-4450-8069-035F48AA95C7}
 		{6C65BCDC-0100-4E94-B59D-8972D8D77DDA} = {E3DE3371-8DC2-41B9-B619-600C3F8EC07D}
 		{7EFBB0F6-168A-47AF-A546-2F0C37B97840} = {6C65BCDC-0100-4E94-B59D-8972D8D77DDA}
+		{FDD593E3-AD31-4E23-96DD-431D45DBC403} = {E04FE5C8-32B1-4E64-A73C-177AC469F67D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FC996B1C-DCDC-4D5B-86FE-2F752662A122}

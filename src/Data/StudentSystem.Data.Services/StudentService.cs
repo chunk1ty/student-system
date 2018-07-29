@@ -3,18 +3,20 @@ using System.Linq;
 using System.Threading.Tasks;
 using StudentSystem.Common;
 using StudentSystem.Data.Contracts;
-using StudentSystem.Data.Entities;
 using StudentSystem.Data.Services.Contracts;
 
 namespace StudentSystem.Data.Services
 {
     public class StudentService : IStudentService
     {
-        private readonly IEntityFrameworkGenericRepository<Student> _studentRepository;
-        private readonly IEntityFrameworkGenericRepository<Course> _courseRepository;
+        private readonly IStudentRepository _studentRepository;
+        private readonly ICourseRepository _courseRepository;
         private readonly IUnitOfWork _unitOfWork; 
 
-        public StudentService(IEntityFrameworkGenericRepository<Student> studentRepository, IEntityFrameworkGenericRepository<Course> courseRepository, IUnitOfWork unitOfWork)
+        public StudentService(
+            IStudentRepository studentRepository, 
+            ICourseRepository courseRepository, 
+            IUnitOfWork unitOfWork)
         {
             _studentRepository = studentRepository;
             _courseRepository = courseRepository;

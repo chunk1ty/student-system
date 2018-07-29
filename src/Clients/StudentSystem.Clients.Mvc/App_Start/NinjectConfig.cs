@@ -13,6 +13,7 @@ using StudentSystem.Clients.Mvc.Services;
 using StudentSystem.Data;
 using StudentSystem.Data.Contracts;
 using StudentSystem.Data.Identity;
+using StudentSystem.Data.Repositories;
 using StudentSystem.Data.Services;
 using StudentSystem.Data.Services.Contracts;
 
@@ -76,18 +77,23 @@ namespace StudentSystem.Clients.Mvc
             kernel.Bind<IIdentityUserManagerService>().ToMethod(_ => HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>());
 
             kernel.Bind<IAuthenticationService>().To<AuthenticationService>();
-            kernel.Bind<ICourseService>().To<CourseService>();
-            kernel.Bind<IStudentService>().To<StudentService>();
+          
             kernel.Bind<IMappingService>().To<MappingService>();
         }
 
         private static void RegisterDataModule(IKernel kernel)
         {
-            kernel.Bind(typeof(IStudentSystemDbContext), typeof(IUnitOfWork))
-                .ToMethod(ctx => ctx.Kernel.Get<StudentSystemDbContext>())
-                .InRequestScope();
+            kernel.Bind<StudentSystemDbContext>().ToSelf().InRequestScope();
 
-            kernel.Bind(typeof(IEntityFrameworkGenericRepository<>)).To(typeof(EntityFrameworkGenericRepository<>));
+            kernel.Bind(typeof(IUnitOfWork))
+                  .ToMethod(ctx => ctx.Kernel.Get<StudentSystemDbContext>())
+                  .InRequestScope();
+
+            kernel.Bind<IStudentRepository>().To<EfStudentRepository>().InRequestScope();
+            kernel.Bind<ICourseRepository>().To<EfCourseRepository>().InRequestScope();
+
+            kernel.Bind<ICourseService>().To<CourseService>().InRequestScope();
+            kernel.Bind<IStudentService>().To<StudentService>().InRequestScope();
         }
     }
 }

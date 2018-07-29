@@ -7,7 +7,7 @@ using StudentSystem.Data.Entities;
 
 namespace StudentSystem.Data
 {
-    public class StudentSystemDbContext : IdentityDbContext<Student>, IStudentSystemDbContext, IUnitOfWork
+    public class StudentSystemDbContext : IdentityDbContext<Student>, IUnitOfWork
     {
         public StudentSystemDbContext()
             : base("DefaultConnection", false)
