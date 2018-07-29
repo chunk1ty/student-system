@@ -46,6 +46,8 @@ namespace StudentSystem.Data.Services
             }
             catch (Exception ex)
             {
+                Log<StudentService>.Error(ex.Message, ex);
+
                 return new FailureStatus<bool>(ex.Message);
             }
         }

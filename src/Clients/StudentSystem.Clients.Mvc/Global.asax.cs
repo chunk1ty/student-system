@@ -12,7 +12,8 @@ namespace StudentSystem.Clients.Mvc
             ViewEngineConfig.RegisterViewEngine();
             AutoMapperConfig.RegisterAutomapper();
             DbConfig.RegisterDb();
-           
+            log4net.Config.XmlConfigurator.Configure();
+
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);

@@ -50,7 +50,8 @@ namespace StudentSystem.Data.Services
             }
             catch (Exception ex)
             {
-                // TODO add logging
+                Log<CourseService>.Error(ex.Message, ex);
+
                 return new FailureStatus<Course>(ex.Message);
             }
 
@@ -69,7 +70,8 @@ namespace StudentSystem.Data.Services
             }
             catch (Exception ex)
             {
-                // TODO add logging
+                Log<CourseService>.Error(ex.Message, ex);
+
                 return new FailureStatus<int>(ex.Message);
             }
 
@@ -92,7 +94,8 @@ namespace StudentSystem.Data.Services
             }
             catch (Exception ex)
             {
-                // TODO add logging
+                Log<CourseService>.Error(ex.Message, ex);
+
                 return new FailureStatus<Course>(ex.Message);
             }
 
