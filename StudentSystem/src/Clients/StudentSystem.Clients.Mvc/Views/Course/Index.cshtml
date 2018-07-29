@@ -1,20 +1,37 @@
 ﻿@model IEnumerable<StudentSystem.Clients.Mvc.ViewModels.Course.CourseViewModel>
 
-@(Html.ActionLink<CourseController>("Add", c => c.Create()))
+<h1>
+    Manage courses
+</h1>
 
-@foreach (var course in Model)
-{
-    <div>
-        <span>
-            @course.Name
-        </span>
+<hr />
 
-        <span>
-            @(Html.ActionLink<CourseController>("Edit", c => c.Edit(course.Id)))
-        </span>
+@(Html.ActionLink<CourseController>("Add", c => c.Create(), null, new { @class = "btn btn-default" }))
 
-        <span>
-            @(Html.ActionLink<CourseController>("Delete", c => c.Delete(course.Id)))
-        </span>
-    </div>
-}
+<div>
+    @Html.Grid(Model).Columns(columns =>
+    {
+        columns.Add(c => c.Name).Titled("Name");
+        columns.Add()
+            .Titled("Edit")
+            .Sanitized(false)
+            .Encoded(false)
+            .RenderValueAs(c => Html.ActionLink<CourseController>("Edit",
+                                                                   e => e.Edit(c.Id),
+                                                                   null,
+                                                                   new { @class = "btn btn-default" }));
+
+        columns.Add()
+            .Titled("Delete")
+            .Sanitized(false)
+            .Encoded(false)
+            .RenderValueAs(c => Html.ActionLink<CourseController>("Delete",
+                                                                   d => d.Delete(c.Id),
+                                                                   null,
+                                                                   new
+                                                                   {
+                                                                       @class = "btn btn-danger",
+                                                                       onclick = "return confirm('Are you sure you wish to delete this contest?');"
+                                                                   }));
+    })
+</div>
