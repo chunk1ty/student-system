@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Data.Entity;
+using System.Linq;
 using System.Threading.Tasks;
 
 using StudentSystem.Data.Contracts;
+using StudentSystem.Data.Entities;
 using StudentSystem.Data.Extensions;
 
 namespace StudentSystem.Data
@@ -68,6 +70,18 @@ namespace StudentSystem.Data
                 DbSet.Attach(entity);
                 DbSet.Remove(entity);
             }
+        }
+
+        public async Task<Student> GetStudentByIdAsync(string id)
+        {
+            return await _studentSystemDbContext.Set<Student>().Include(x => x.Courses).FirstOrDefaultAsync(x => x.Id.Equals(id));
+        }
+
+        public async Task<IEnumerable<Course>> GetAllByStudentIdAsync(string studentId)
+        {
+            return await _studentSystemDbContext.Set<Course>()
+                .Where(x => x.Students.Any(y => y.Id == studentId))
+                .ToListAsync();
         }
     }
 }

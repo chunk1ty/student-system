@@ -33,15 +33,25 @@ namespace StudentSystem.Data
 
             modelBuilder.Entity<Student>().ToTable("Students");
             modelBuilder.Entity<Student>()
-                .Ignore(x => x.EmailConfirmed)
-                .Ignore(x => x.PhoneNumber)
-                .Ignore(x => x.PhoneNumberConfirmed)
-                .Ignore(x => x.TwoFactorEnabled)
-                .Ignore(x => x.LockoutEndDateUtc)
-                .Ignore(x => x.LockoutEnabled)
-                .Ignore(x => x.AccessFailedCount);
+                        .Ignore(x => x.EmailConfirmed)
+                        .Ignore(x => x.PhoneNumber)
+                        .Ignore(x => x.PhoneNumberConfirmed)
+                        .Ignore(x => x.TwoFactorEnabled)
+                        .Ignore(x => x.LockoutEndDateUtc)
+                        .Ignore(x => x.LockoutEnabled)
+                        .Ignore(x => x.AccessFailedCount);
 
             modelBuilder.Entity<Course>().HasKey(x => x.Id);
+
+            modelBuilder.Entity<Student>()
+                        .HasMany(s => s.Courses)
+                        .WithMany(c => c.Students)
+                        .Map(cs =>
+                        {
+                            cs.MapLeftKey("StudentId");
+                            cs.MapRightKey("CourseId");
+                            cs.ToTable("StudentCourses");
+                        });
         }
 
         public void Commit()

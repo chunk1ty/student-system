@@ -77,6 +77,7 @@ namespace StudentSystem.Clients.Mvc
 
             kernel.Bind<IAuthenticationService>().To<AuthenticationService>();
             kernel.Bind<ICourseService>().To<CourseService>();
+            kernel.Bind<IStudentService>().To<StudentService>();
             kernel.Bind<IMappingService>().To<MappingService>();
         }
 

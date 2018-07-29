@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using StudentSystem.Data.Entities;
 
 namespace StudentSystem.Data
 {
@@ -14,5 +15,9 @@ namespace StudentSystem.Data
         void Update(TEntity entity);
 
         void Delete(TEntity entity);
+
+        Task<Student> GetStudentByIdAsync(string id);
+
+        Task<IEnumerable<Course>> GetAllByStudentIdAsync(string studentId);
     }
 }

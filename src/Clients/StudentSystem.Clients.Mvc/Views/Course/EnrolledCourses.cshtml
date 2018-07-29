@@ -1,0 +1,16 @@
+﻿@model IEnumerable<StudentSystem.Clients.Mvc.ViewModels.Course.CourseViewModel>
+
+<h1>
+    Enrolled courses
+</h1>
+
+<hr />
+
+@(Html.ActionLink<CourseController>("Back", c => c.AvailableCourses(), null, new { @class = "btn btn-default" }))
+
+<div>
+    @Html.Grid(Model).Columns(columns =>
+    {
+        columns.Add(c => c.Name).Titled("Name");
+    })
+</div>

@@ -10,12 +10,14 @@ namespace StudentSystem.Data.Services.Contracts
     {
         Task<IEnumerable<Course>> GetAllAsync();
 
+        Task<IEnumerable<Course>> GetAllByStudentIdAsync(string studentid);
+
         Task<Course> GetByIdAsync(int id);
 
-        OperationStatus Add(Course course);
+        OperationStatus<Course> Add(Course course);
 
-        Task<OperationStatus> DeleteAsync(int id);
+        Task<OperationStatus<int>> DeleteAsync(int id);
 
-        OperationStatus Update(Course course);
+        OperationStatus<Course> Update(Course course);
     }
 }
