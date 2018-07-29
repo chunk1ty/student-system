@@ -1,0 +1,24 @@
+﻿@model IEnumerable<StudentSystem.Clients.Mvc.ViewModels.Course.CourseViewModel>
+
+<h1>
+    Available Courses
+</h1>
+
+<hr />
+
+@(Html.ActionLink<CourseController>("Add", c => c.Create(), null, new { @class = "btn btn-default" }))
+
+<div>
+    @Html.Grid(Model).Columns(columns =>
+    {
+        columns.Add(c => c.Name).Titled("Name");
+        columns.Add()
+            .Titled("Edit")
+            .Sanitized(false)
+            .Encoded(false)
+            .RenderValueAs(c => Html.ActionLink<CourseController>("Edit",
+                                                                   e => e.Edit(c.Id),
+                                                                   null,
+                                                                   new { @class = "btn btn-default" }));
+    })
+</div>

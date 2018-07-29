@@ -2,11 +2,13 @@
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
-using StudentSystem.Clients.Mvc.Models;
+
 using StudentSystem.Data.Identity;
 using System.Web.Mvc.Expressions;
+using StudentSystem.Clients.Mvc.ViewModels.Account;
 
 namespace StudentSystem.Clients.Mvc.Controllers
 {
@@ -15,8 +17,7 @@ namespace StudentSystem.Clients.Mvc.Controllers
     {
         private readonly IAuthenticationService _authenticationService;
 
-        public AccountController(
-            IAuthenticationService authenticationService)
+        public AccountController(IAuthenticationService authenticationService)
         {
             _authenticationService = authenticationService ?? throw new ArgumentNullException(nameof(authenticationService)); ;
         }
@@ -27,7 +28,7 @@ namespace StudentSystem.Clients.Mvc.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                return this.RedirectToAction<HomeController>(x => x.Index());
+                return this.RedirectToAction<CourseController>(x => x.AvailableCourses());
             }
 
             return View();
@@ -43,11 +44,11 @@ namespace StudentSystem.Clients.Mvc.Controllers
                 return View(model);
             }
 
-            var result = await _authenticationService.LogIn(model.Email, model.Password);
+            var result = await _authenticationService.LogIn(model.Email, model.Password, model.RememberMe);
 
             if (result == SignInStatus.Success)
             {
-                return this.RedirectToAction<HomeController>(x => x.Index());
+                return this.RedirectToAction<CourseController>(x => x.AvailableCourses());
             }
 
             // TODO error
@@ -93,7 +94,7 @@ namespace StudentSystem.Clients.Mvc.Controllers
 
             if (result.Succeeded)
             {
-                return this.RedirectToAction<HomeController>(x => x.Index());
+                return this.RedirectToAction<CourseController>(x => x.AvailableCourses());
             }
 
             AddErrors(result);

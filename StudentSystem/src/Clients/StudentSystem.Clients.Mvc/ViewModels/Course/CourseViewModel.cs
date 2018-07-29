@@ -1,4 +1,5 @@
-﻿using StudentSystem.Clients.Mvc.Services;
+﻿using System.ComponentModel.DataAnnotations;
+using StudentSystem.Clients.Mvc.Services;
 
 namespace StudentSystem.Clients.Mvc.ViewModels.Course
 {
@@ -6,11 +7,7 @@ namespace StudentSystem.Clients.Mvc.ViewModels.Course
     {
         public int Id { get; set; }
 
-        public string Name { get; set; }
-    }
-
-    public class CourseAddViewModel : IMap<Data.Entities.Course>
-    {
+        [Required]
         public string Name { get; set; }
     }
 }

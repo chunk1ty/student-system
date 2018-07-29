@@ -13,18 +13,18 @@
     {
         columns.Add(c => c.Name).Titled("Name");
         columns.Add()
-            .Titled("Edit")
             .Sanitized(false)
             .Encoded(false)
+            .SetWidth(50)
             .RenderValueAs(c => Html.ActionLink<CourseController>("Edit",
                                                                    e => e.Edit(c.Id),
                                                                    null,
                                                                    new { @class = "btn btn-default" }));
-
+        
         columns.Add()
-            .Titled("Delete")
             .Sanitized(false)
             .Encoded(false)
+            .SetWidth(50)
             .RenderValueAs(c => Html.ActionLink<CourseController>("Delete",
                                                                    d => d.Delete(c.Id),
                                                                    null,

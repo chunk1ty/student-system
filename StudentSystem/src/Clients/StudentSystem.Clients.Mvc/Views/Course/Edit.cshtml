@@ -1,14 +1,14 @@
 ﻿@model StudentSystem.Clients.Mvc.ViewModels.Course.CourseViewModel
 
-@using (Html.BeginForm<CourseController>(x => x.Edit(Model.Id), FormMethod.Post, new { @class = "form-horizontal form-label-left", role = "form" }))
+<h1>
+    Edit course
+</h1>
+
+<hr />
+
+@using (Html.BeginForm("Edit", "Course", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
     @Html.AntiForgeryToken()
-
-    <h4>
-        Edit course
-    </h4>
-    <hr />
-
     @Html.ValidationSummary("", new { @class = "text-danger" })
 
     <div class="form-group">

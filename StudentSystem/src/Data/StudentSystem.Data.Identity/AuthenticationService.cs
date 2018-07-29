@@ -12,9 +12,7 @@ namespace StudentSystem.Data.Identity
     {
         Task<IdentityResult> CreateAccountAsync(string email, string password);
 
-        Task<SignInStatus> LogIn(string email, string password);
-
-        Task<IdentityResult> ChangePassword(string userId, string oldPassword, string newPassword);
+        Task<SignInStatus> LogIn(string email, string password, bool rememberMe);
     }
 
     public class AuthenticationService : IAuthenticationService
@@ -48,10 +46,9 @@ namespace StudentSystem.Data.Identity
             return result;
         }
 
-        public async Task<SignInStatus> LogIn(string email, string password)
-        {
-            // To enable password failures to trigger account lockout, change to shouldLockout: true
-            return await _identitySignInService.PasswordSignInAsync(email, password, false, false);
+        public async Task<SignInStatus> LogIn(string email, string password, bool rememberMe){
+            
+            return await _identitySignInService.PasswordSignInAsync(email, password, rememberMe, false);
         }
 
         public async Task<IdentityResult> ChangePassword(string userId, string oldPassword, string newPassword)

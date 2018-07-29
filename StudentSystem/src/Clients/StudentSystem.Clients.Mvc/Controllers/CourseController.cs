@@ -2,6 +2,7 @@
 using System.Net;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+
 using StudentSystem.Clients.Mvc.Services;
 using StudentSystem.Clients.Mvc.ViewModels.Course;
 using StudentSystem.Data.Entities;
@@ -22,12 +23,18 @@ namespace StudentSystem.Clients.Mvc.Controllers
             _mapping = mapping;
         }
 
-       [HttpGet]
-        public async Task<ActionResult> Index()
-       {
-           var courses = await _courseService.GetAllAsync();
+        [HttpGet]
+        public async Task<ActionResult> AvailableCourses()
+        {
+            var coursesViewModel = await GetAllCourses();
 
-           var coursesViewModel = _mapping.Map<IEnumerable<CourseViewModel>>(courses);
+            return View(coursesViewModel);
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> ManageCourses()
+        {
+            var coursesViewModel = await GetAllCourses();
 
             return View(coursesViewModel);
         }
@@ -39,7 +46,7 @@ namespace StudentSystem.Clients.Mvc.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(CourseAddViewModel courseAddViewModel)
+        public ActionResult Create(CourseViewModel courseAddViewModel)
         {
             if (!ModelState.IsValid)
             {
@@ -52,9 +59,9 @@ namespace StudentSystem.Clients.Mvc.Controllers
 
             if (operationStatus.IsSuccessful)
             {
-                return this.RedirectToAction(x => x.Index());
+                return this.RedirectToAction(x => x.ManageCourses());
             }
-           
+
             // TODO add some error to modelstate 
 
             return View(courseAddViewModel);
@@ -84,7 +91,7 @@ namespace StudentSystem.Clients.Mvc.Controllers
 
             if (operationStatus.IsSuccessful)
             {
-                return this.RedirectToAction(x => x.Index());
+                return this.RedirectToAction(x => x.ManageCourses());
             }
 
             // TODO add some error to modelstate 
@@ -100,12 +107,19 @@ namespace StudentSystem.Clients.Mvc.Controllers
 
             if (operationStatus.IsSuccessful)
             {
-                return this.RedirectToAction(x => x.Index());
+                return this.RedirectToAction(x => x.ManageCourses());
             }
 
             // TODO add some error to modelstate 
 
-            return new HttpStatusCodeResult(HttpStatusCode.BadRequest); 
+            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        }
+
+        private async Task<IEnumerable<CourseViewModel>> GetAllCourses()
+        {
+            var courses = await _courseService.GetAllAsync();
+
+            return _mapping.Map<IEnumerable<CourseViewModel>>(courses);
         }
     }
 }
