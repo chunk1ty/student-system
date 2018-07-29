@@ -43,22 +43,5 @@ namespace StudentSystem.Data.Identity
             
             return await _identitySignInService.PasswordSignInAsync(email, password, rememberMe, false);
         }
-
-        public async Task<IdentityResult> ChangePassword(string userId, string oldPassword, string newPassword)
-        {
-            var result = await _identityUserManagerService.ChangePasswordAsync(userId, oldPassword, newPassword);
-
-            if (result.Succeeded)
-            {
-                var user = await _identityUserManagerService.FindByIdAsync(userId);
-
-                if (user != null)
-                {
-                    await _identitySignInService.SignInAsync(user, false, false);
-                }
-            }
-
-            return result;
-        }
     }
 }

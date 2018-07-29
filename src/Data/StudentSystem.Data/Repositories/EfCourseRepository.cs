@@ -20,12 +20,14 @@ namespace StudentSystem.Data.Repositories
         public async Task<IEnumerable<Course>> GetAllAsync()
         {
             return await _studentSystemDbContext.Set<Course>()
+                                                .AsNoTracking()
                                                 .ToListAsync();
         }
 
         public async Task<IEnumerable<Course>> GetAllByStudentIdAsync(string studentId)
         {
             return await _studentSystemDbContext.Set<Course>()
+                                                .AsNoTracking()
                                                 .Where(x => x.Students.Any(y => y.Id.Equals(studentId)))
                                                 .ToListAsync();
         }

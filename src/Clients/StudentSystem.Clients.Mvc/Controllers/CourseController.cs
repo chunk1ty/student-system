@@ -39,10 +39,10 @@ namespace StudentSystem.Clients.Mvc.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Enroll(int courseId)
         {
-            var operationStatus =  await _studentService.IsStudentEnrolledAsync(User.Identity.GetUserId(), courseId);
+            var operationStatus = await _studentService.EnrollStudentInCourseAsync(User.Identity.GetUserId(), courseId);
 
             if (!operationStatus.IsSuccessful)
-            { 
+            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 

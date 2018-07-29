@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+
 using StudentSystem.Common;
+
 using StudentSystem.Data.Contracts;
 using StudentSystem.Data.Services.Contracts;
 
@@ -18,12 +20,12 @@ namespace StudentSystem.Data.Services
             ICourseRepository courseRepository, 
             IUnitOfWork unitOfWork)
         {
-            _studentRepository = studentRepository;
-            _courseRepository = courseRepository;
-            _unitOfWork = unitOfWork;
+            _studentRepository = studentRepository ?? throw  new ArgumentNullException(nameof(courseRepository));
+            _courseRepository = courseRepository ?? throw new ArgumentNullException(nameof(courseRepository));
+            _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
         }
 
-        public async Task<OperationStatus<bool>> IsStudentEnrolledAsync(string studentId, int courseId)
+        public async Task<OperationStatus<bool>> EnrollStudentInCourseAsync(string studentId, int courseId)
         {
             try
             {

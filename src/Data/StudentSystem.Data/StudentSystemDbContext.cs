@@ -27,6 +27,12 @@ namespace StudentSystem.Data
             return base.Set<TEntity>();
         }
 
+        public void Commit()
+        {
+            SaveChanges();
+        }
+
+        //TODO remove onother tables
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -52,11 +58,6 @@ namespace StudentSystem.Data
                             cs.MapRightKey("CourseId");
                             cs.ToTable("StudentCourses");
                         });
-        }
-
-        public void Commit()
-        {
-            base.SaveChanges();
         }
     }
 }

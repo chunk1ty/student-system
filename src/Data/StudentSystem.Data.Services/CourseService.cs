@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 
 using StudentSystem.Common;
@@ -17,8 +16,8 @@ namespace StudentSystem.Data.Services
 
         public CourseService(ICourseRepository courseRepository, IUnitOfWork unitOfWork)
         {
-            _courseRepository = courseRepository;
-            _unitOfWork = unitOfWork;
+            _courseRepository = courseRepository ?? throw new ArgumentNullException(nameof(courseRepository));
+            _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
         }
 
         public async Task<IEnumerable<Course>> GetAllAsync()
