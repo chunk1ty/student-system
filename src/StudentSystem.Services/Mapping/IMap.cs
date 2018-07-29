@@ -1,4 +1,4 @@
-﻿namespace StudentSystem.Clients.Mvc.Services
+﻿namespace StudentSystem.Services.Mapping
 {
     public interface IMap<T>
         where T : class
