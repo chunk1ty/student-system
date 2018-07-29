@@ -19,7 +19,7 @@ namespace StudentSystem.Clients.Mvc.Controllers
 
         public AccountController(IAuthenticationService authenticationService)
         {
-            _authenticationService = authenticationService ?? throw new ArgumentNullException(nameof(authenticationService)); ;
+            _authenticationService = authenticationService ?? throw new ArgumentNullException(nameof(authenticationService));
         }
 
         [HttpGet]
@@ -50,9 +50,8 @@ namespace StudentSystem.Clients.Mvc.Controllers
             {
                 return this.RedirectToAction<CourseController>(x => x.AvailableCourses());
             }
-
-            // TODO error
-            //ModelState.AddModelError(string.Empty, Resources.Resources.IncorrentEmailOrPasswordMessage);
+           
+            ModelState.AddModelError(string.Empty, "Incorrent email or password.");
 
             return View(model);
         }
@@ -68,14 +67,9 @@ namespace StudentSystem.Clients.Mvc.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public async Task<ActionResult> Register()
+        public ActionResult Register()
         {
-            RegisterViewModel model = new RegisterViewModel()
-            {
-                
-            };
-
-            return View(model);
+            return View(new RegisterViewModel());
         }
 
         [HttpPost]
@@ -88,9 +82,7 @@ namespace StudentSystem.Clients.Mvc.Controllers
                 return View(model);
             }
 
-            var result = await _authenticationService.CreateAccountAsync(
-                model.Email,
-                model.Password);
+            var result = await _authenticationService.CreateAccountAsync(model.Email, model.Password);
 
             if (result.Succeeded)
             {
