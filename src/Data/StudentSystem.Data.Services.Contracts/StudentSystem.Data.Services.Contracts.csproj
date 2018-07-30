@@ -34,6 +34,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IAccountService.cs" />
     <Compile Include="ICourseService.cs" />
     <Compile Include="IStudentService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

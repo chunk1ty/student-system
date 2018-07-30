@@ -116,10 +116,6 @@
       <Project>{109E548F-EF39-4D6F-B493-59E6B6573BE5}</Project>
       <Name>StudentSystem.Clients.Mvc</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\src\Data\StudentSystem.Data.Identity\StudentSystem.Data.Identity.csproj">
-      <Project>{A05F37DD-02DE-4893-8887-09612F9C8655}</Project>
-      <Name>StudentSystem.Data.Identity</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

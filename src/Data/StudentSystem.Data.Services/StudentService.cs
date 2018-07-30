@@ -25,11 +25,11 @@ namespace StudentSystem.Data.Services
             _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
         }
 
-        public async Task<OperationStatus<bool>> EnrollStudentInCourseAsync(string studentId, int courseId)
+        public async Task<OperationStatus<bool>> EnrollStudentInCourseAsync(string email, int courseId)
         {
             try
             {
-                var student = await _studentRepository.GetStudentByIdAsync(studentId);
+                var student = await _studentRepository.GetStudentByEmailAsync(email);
 
                 if (student.Courses.Any(c => c.Id == courseId))
                 {

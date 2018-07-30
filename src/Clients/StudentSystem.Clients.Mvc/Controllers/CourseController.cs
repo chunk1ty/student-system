@@ -12,6 +12,7 @@ using StudentSystem.Services.Mapping;
 
 namespace StudentSystem.Clients.Mvc.Controllers
 {
+    //TODO rename; separation of concers 
     [Authorize]
     public class CourseController : Controller
     {
@@ -38,7 +39,7 @@ namespace StudentSystem.Clients.Mvc.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Enroll(int courseId)
         {
-            var operationStatus = await _studentService.EnrollStudentInCourseAsync(User.Identity.GetUserId(), courseId);
+            var operationStatus = await _studentService.EnrollStudentInCourseAsync(User.Identity.Name, courseId);
 
             if (!operationStatus.IsSuccessful)
             {
@@ -51,7 +52,7 @@ namespace StudentSystem.Clients.Mvc.Controllers
         [HttpGet]
         public async Task<ActionResult> EnrolledCourses()
         {
-            var courses = await _courseService.GetAllByStudentIdAsync(User.Identity.GetUserId());
+            var courses = await _courseService.GetAllByStudentEmailAsync(User.Identity.Name);
 
             var coursesViewModel = _mapping.Map<IEnumerable<CourseViewModel>>(courses);
 

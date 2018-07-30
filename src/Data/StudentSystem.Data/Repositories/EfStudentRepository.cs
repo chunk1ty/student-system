@@ -15,11 +15,32 @@ namespace StudentSystem.Data.Repositories
             _studentSystemDbContext = studentSystemDbContext;
         }
 
-        public async Task<Student> GetStudentByIdAsync(string id)
+        public async Task<Student> GetStudentByIdAsync(int id)
         {
             return await _studentSystemDbContext.Set<Student>()
                                                 .Include(x => x.Courses)
-                                                .FirstOrDefaultAsync(x => x.Id.Equals(id));
+                                                .SingleOrDefaultAsync(x => x.Id.Equals(id));
+        }
+
+        public async Task<Student> GetStudentByEmailAsync(string email)
+        {
+            return await _studentSystemDbContext.Set<Student>()
+                                                .Include(x => x.Courses)
+                                                .SingleOrDefaultAsync(x => x.Email.Equals(email));
+        }
+
+        public void Add(Student entity)
+        {
+            var entry = _studentSystemDbContext.Entry(entity);
+
+            if (entry.State != EntityState.Detached)
+            {
+                entry.State = EntityState.Added;
+            }
+            else
+            {
+                _studentSystemDbContext.Students.Add(entity);
+            }
         }
     }
 }

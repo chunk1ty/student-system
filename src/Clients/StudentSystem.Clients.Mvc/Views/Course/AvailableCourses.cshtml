@@ -42,7 +42,6 @@
 @section scripts {
     <script>
         $('.enroll').on('click', function () {
-            debugger;
             var token = $('input[name="__RequestVerificationToken"]').val();
 
             var courseId = $(this).closest('tr').attr('data-course-id');

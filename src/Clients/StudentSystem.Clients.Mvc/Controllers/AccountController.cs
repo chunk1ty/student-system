@@ -1,25 +1,20 @@
-﻿using System;
-using System.Threading.Tasks;
-using System.Web;
+﻿using System.Threading.Tasks;
 using System.Web.Mvc;
-
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
-
-using StudentSystem.Data.Identity;
 using System.Web.Mvc.Expressions;
+using System.Web.Security;
 using StudentSystem.Clients.Mvc.ViewModels.Account;
+using StudentSystem.Data.Services.Contracts;
 
 namespace StudentSystem.Clients.Mvc.Controllers
 {
     [Authorize]
     public class AccountController : Controller
     {
-        private readonly IAuthenticationService _authenticationService;
+        private readonly IAccountService _accountService;
 
-        public AccountController(IAuthenticationService authenticationService)
+        public AccountController(IAccountService accountService)
         {
-            _authenticationService = authenticationService ?? throw new ArgumentNullException(nameof(authenticationService));
+            _accountService = accountService;
         }
 
         [HttpGet]
@@ -44,10 +39,12 @@ namespace StudentSystem.Clients.Mvc.Controllers
                 return View(model);
             }
 
-            var result = await _authenticationService.LogIn(model.Email, model.Password, model.RememberMe);
+            var result =  await _accountService.LogInAsync(model.Email, model.Password);
 
-            if (result == SignInStatus.Success)
+            if (result.IsSuccessful)
             {
+                FormsAuthentication.SetAuthCookie(model.Email, model.RememberMe);
+
                 return this.RedirectToAction<CourseController>(x => x.AvailableCourses());
             }
            
@@ -60,7 +57,7 @@ namespace StudentSystem.Clients.Mvc.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
-            HttpContext.GetOwinContext().Authentication.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+            FormsAuthentication.SignOut();
 
             return this.RedirectToAction<AccountController>(x => x.Login());
         }
@@ -82,24 +79,16 @@ namespace StudentSystem.Clients.Mvc.Controllers
                 return View(model);
             }
 
-            var result = await _authenticationService.CreateAccountAsync(model.Email, model.Password);
+            var result =  _accountService.CreateAsync(model.Email, model.Password);
 
-            if (result.Succeeded)
+            if (!result.IsSuccessful)
             {
-                return this.RedirectToAction<CourseController>(x => x.AvailableCourses());
+                return View(model);
             }
 
-            AddErrors(result);
-          
-            return View(model);
-        }
+            FormsAuthentication.SetAuthCookie(model.Email, true);
 
-        private void AddErrors(IdentityResult result)
-        {
-            foreach (var error in result.Errors)
-            {
-                ModelState.AddModelError(string.Empty, error);
-            }
+            return this.RedirectToAction<CourseController>(x => x.AvailableCourses());
         }
     }
 }

@@ -10,7 +10,6 @@ using Ninject.Web.Common.WebHost;
 using StudentSystem.Clients.Mvc;
 using StudentSystem.Data;
 using StudentSystem.Data.Contracts;
-using StudentSystem.Data.Identity;
 using StudentSystem.Data.Repositories;
 using StudentSystem.Data.Services;
 using StudentSystem.Data.Services.Contracts;
@@ -72,11 +71,6 @@ namespace StudentSystem.Clients.Mvc
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-            kernel.Bind<IIdentitySignInService>().ToMethod(_ => HttpContext.Current.GetOwinContext().Get<ApplicationSignInManager>());
-            kernel.Bind<IIdentityUserManagerService>().ToMethod(_ => HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>());
-
-            kernel.Bind<IAuthenticationService>().To<AuthenticationService>();
-          
             kernel.Bind<IMappingService>().To<MappingService>();
         }
 
@@ -93,6 +87,7 @@ namespace StudentSystem.Clients.Mvc
 
             kernel.Bind<ICourseService>().To<CourseService>().InRequestScope();
             kernel.Bind<IStudentService>().To<StudentService>().InRequestScope();
+            kernel.Bind<IAccountService>().To<AccountService>().InRequestScope();
         }
     }
 }

@@ -212,7 +212,6 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\NinjectConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\ViewEngineConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CourseController.cs" />
@@ -223,7 +222,6 @@
     <Compile Include="ViewModels\Account\RegisterViewModel.cs" />
     <Compile Include="ViewModels\Course\CourseViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -299,10 +297,6 @@
     <ProjectReference Include="..\..\Data\StudentSystem.Data.Entities\StudentSystem.Data.Entities.csproj">
       <Project>{3D0E29A1-2862-41BB-9E03-DFA227B2C024}</Project>
       <Name>StudentSystem.Data.Entities</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Data\StudentSystem.Data.Identity\StudentSystem.Data.Identity.csproj">
-      <Project>{A05F37DD-02DE-4893-8887-09612F9C8655}</Project>
-      <Name>StudentSystem.Data.Identity</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Data\StudentSystem.Data.Services.Contracts\StudentSystem.Data.Services.Contracts.csproj">
       <Project>{32184320-2DD5-468A-94B3-819972500D68}</Project>

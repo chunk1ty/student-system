@@ -10,7 +10,7 @@ namespace StudentSystem.Data.Services.Contracts
     {
         Task<IEnumerable<Course>> GetAllAsync();
 
-        Task<IEnumerable<Course>> GetAllByStudentIdAsync(string studentid);
+        Task<IEnumerable<Course>> GetAllByStudentEmailAsync(string studentid);
 
         Task<Course> GetByIdAsync(int id);
 

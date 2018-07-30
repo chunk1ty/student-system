@@ -28,7 +28,7 @@ namespace StudentSystem.Data.Repositories
         {
             return await _studentSystemDbContext.Set<Course>()
                                                 .AsNoTracking()
-                                                .Where(x => x.Students.Any(y => y.Id.Equals(studentId)))
+                                                .Where(x => x.Students.Any(y => y.Email.Equals(studentId)))
                                                 .ToListAsync();
         }
 

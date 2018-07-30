@@ -25,9 +25,9 @@ namespace StudentSystem.Data.Services
             return await _courseRepository.GetAllAsync();
         }
 
-        public async Task<IEnumerable<Course>> GetAllByStudentIdAsync(string studentid)
+        public async Task<IEnumerable<Course>> GetAllByStudentEmailAsync(string email)
         {
-            return await _courseRepository.GetAllByStudentIdAsync(studentid);
+            return await _courseRepository.GetAllByStudentIdAsync(email);
         }
 
         public async Task<Course> GetByIdAsync(int id)
