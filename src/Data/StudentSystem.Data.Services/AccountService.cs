@@ -34,7 +34,7 @@ namespace StudentSystem.Data.Services
                 _studentRepository.Add(new Student { Email = email, Password = password });
                 _unitOfWork.Commit();
 
-                return new SuccessStatus<string>(ClientMessage.SuccessfullyRegistered);
+                return new SuccessStatus<string>(email);
             }
             catch (Exception ex)
             {
@@ -58,7 +58,7 @@ namespace StudentSystem.Data.Services
                     return new FailureStatus<string>(string.Format(ClientMessage.PasswordNotRecognised, email));
                 }
 
-                return new SuccessStatus<string>(ClientMessage.LogInSuccessfully);
+                return new SuccessStatus<string>(email);
             }
             catch (Exception ex)
             {

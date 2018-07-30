@@ -8,6 +8,7 @@ using Ninject.Web.Common;
 using Ninject.Web.Common.WebHost;
 
 using StudentSystem.Clients.Mvc;
+using StudentSystem.Clients.Mvc.Infrastructure;
 using StudentSystem.Data;
 using StudentSystem.Data.Contracts;
 using StudentSystem.Data.Repositories;
@@ -72,6 +73,7 @@ namespace StudentSystem.Clients.Mvc
         private static void RegisterServices(IKernel kernel)
         {
             kernel.Bind<IMappingService>().To<MappingService>();
+            kernel.Bind<FormsAuthenticationWrapper>().ToSelf().InRequestScope();
         }
 
         private static void RegisterDataModule(IKernel kernel)

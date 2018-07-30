@@ -11,8 +11,6 @@
 
         public const string PasswordNotRecognised = "Password for user '{0}' is not recognised.";
 
-        public const string LogInSuccessfully = "Log in successfully";
-
         public const string CourseDoesNotExist = "Course doesn't exist.";
 
         public const string CourseCannotBeNull = "Course cannot be null.";

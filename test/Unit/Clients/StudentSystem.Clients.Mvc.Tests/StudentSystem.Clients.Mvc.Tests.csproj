@@ -95,6 +95,18 @@
       <Project>{109E548F-EF39-4D6F-B493-59E6B6573BE5}</Project>
       <Name>StudentSystem.Clients.Mvc</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\src\Data\StudentSystem.Data.Services.Contracts\StudentSystem.Data.Services.Contracts.csproj">
+      <Project>{32184320-2DD5-468A-94B3-819972500D68}</Project>
+      <Name>StudentSystem.Data.Services.Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\src\Data\StudentSystem.Data.Services\StudentSystem.Data.Services.csproj">
+      <Project>{3126E786-F4CA-47F8-AEA3-EE359FE63FEA}</Project>
+      <Name>StudentSystem.Data.Services</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\src\StudentSystem.Common\StudentSystem.Common.csproj">
+      <Project>{D446FFE2-72EB-4317-ABCF-10586384CBE0}</Project>
+      <Name>StudentSystem.Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

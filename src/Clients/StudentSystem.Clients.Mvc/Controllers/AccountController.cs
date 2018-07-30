@@ -1,7 +1,9 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Web.Mvc.Expressions;
 using System.Web.Security;
+using StudentSystem.Clients.Mvc.Infrastructure;
 using StudentSystem.Clients.Mvc.ViewModels.Account;
 using StudentSystem.Data.Services.Contracts;
 
@@ -11,10 +13,14 @@ namespace StudentSystem.Clients.Mvc.Controllers
     public class AccountController : Controller
     {
         private readonly IAccountService _accountService;
+        private readonly FormsAuthenticationWrapper _formsAuthenticationWrapper;
 
-        public AccountController(IAccountService accountService)
+        public AccountController(
+            IAccountService accountService, 
+            FormsAuthenticationWrapper formsAuthenticationWrapper)
         {
-            _accountService = accountService;
+            _accountService = accountService ?? throw new ArgumentNullException(nameof(accountService));
+            _formsAuthenticationWrapper = formsAuthenticationWrapper ?? throw new ArgumentNullException(nameof(formsAuthenticationWrapper));
         }
 
         [HttpGet]
@@ -43,7 +49,7 @@ namespace StudentSystem.Clients.Mvc.Controllers
 
             if (result.IsSuccessful)
             {
-                FormsAuthentication.SetAuthCookie(model.Email, model.RememberMe);
+                _formsAuthenticationWrapper.SetAuthCookie(model.Email, model.RememberMe);
 
                 return this.RedirectToAction<CourseController>(x => x.AvailableCourses());
             }
@@ -56,7 +62,7 @@ namespace StudentSystem.Clients.Mvc.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
-            FormsAuthentication.SignOut();
+            _formsAuthenticationWrapper.SignOut();
 
             return this.RedirectToAction<AccountController>(x => x.Login());
         }
@@ -82,7 +88,7 @@ namespace StudentSystem.Clients.Mvc.Controllers
 
             if (result.IsSuccessful)
             {
-                FormsAuthentication.SetAuthCookie(model.Email, true);
+                _formsAuthenticationWrapper.SetAuthCookie(model.Email, true);
 
                 return this.RedirectToAction<CourseController>(x => x.AvailableCourses());
             }
