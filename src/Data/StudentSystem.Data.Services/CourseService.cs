@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 
 using StudentSystem.Common;
+using StudentSystem.Common.Constants;
 using StudentSystem.Data.Contracts;
 using StudentSystem.Data.Entities;
 using StudentSystem.Data.Services.Contracts;
@@ -20,19 +21,52 @@ namespace StudentSystem.Data.Services
             _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
         }
 
-        public async Task<IEnumerable<Course>> GetAllAsync()
+        public async Task<OperationStatus<IEnumerable<Course>>> GetAllAsync()
         {
-            return await _courseRepository.GetAllAsync();
+            try
+            {
+                var courses = await _courseRepository.GetAllAsync();
+
+                return new SuccessStatus<IEnumerable<Course>>(courses);
+            }
+            catch (Exception ex)
+            {
+                Log<CourseService>.Error(ex.Message, ex);
+
+                return new FailureStatus<IEnumerable<Course>>(ClientMessage.SomethingWentWrong);
+            }
         }
 
-        public async Task<IEnumerable<Course>> GetAllByStudentEmailAsync(string email)
+        public async Task<OperationStatus<IEnumerable<Course>>> GetAllByStudentEmailAsync(string email)
         {
-            return await _courseRepository.GetAllByStudentIdAsync(email);
+            try
+            {
+                var courses = await _courseRepository.GetAllByStudentEmailAsync(email);
+
+                return new SuccessStatus<IEnumerable<Course>>(courses);
+            }
+            catch (Exception ex)
+            {
+                Log<CourseService>.Error(ex.Message, ex);
+
+                return new FailureStatus<IEnumerable<Course>>(ClientMessage.SomethingWentWrong);
+            }
         }
 
-        public async Task<Course> GetByIdAsync(int id)
+        public async Task<OperationStatus<Course>> GetByIdAsync(int id)
         {
-            return await _courseRepository.GetByIdAsync(id);
+            try
+            {
+                var courses = await _courseRepository.GetByIdAsync(id);
+
+                return new SuccessStatus<Course>(courses);
+            }
+            catch (Exception ex)
+            {
+                Log<CourseService>.Error(ex.Message, ex);
+
+                return new FailureStatus<Course>(ClientMessage.SomethingWentWrong);
+            }
         }
 
         public OperationStatus<Course> Add(Course course)
@@ -41,41 +75,43 @@ namespace StudentSystem.Data.Services
             {
                 if (course == null)
                 {
-                    throw new ArgumentNullException(nameof(course));
+                    return new FailureStatus<Course>(ClientMessage.CourseCannotBeNull);
                 }
 
                 _courseRepository.Add(course);
-
                 _unitOfWork.Commit();
+
+                return new SuccessStatus<Course>(course);
             }
             catch (Exception ex)
             {
                 Log<CourseService>.Error(ex.Message, ex);
 
-                return new FailureStatus<Course>(ex.Message);
+                return new FailureStatus<Course>(ClientMessage.SomethingWentWrong);
             }
-
-            return new SuccessStatus<Course>(course);
         }
 
-        public async Task<OperationStatus<int>> DeleteAsync(int id)
+        public async Task<OperationStatus<int>> DeleteByIdAsync(int id)
         {
             try
             {
                 var course = await _courseRepository.GetByIdAsync(id);
+                if (course == null)
+                {
+                    return new FailureStatus<int>(ClientMessage.CourseDoesNotExist);
+                }
 
                 _courseRepository.Delete(course);
-
                 _unitOfWork.Commit();
+
+                return new SuccessStatus<int>(id);
             }
             catch (Exception ex)
             {
                 Log<CourseService>.Error(ex.Message, ex);
 
-                return new FailureStatus<int>(ex.Message);
+                return new FailureStatus<int>(ClientMessage.SomethingWentWrong);
             }
-
-            return new SuccessStatus<int>(id);
         }
 
         public OperationStatus<Course> Update(Course course)
@@ -84,22 +120,20 @@ namespace StudentSystem.Data.Services
             {
                 if (course == null)
                 {
-                    throw new ArgumentNullException(nameof(course));
+                    return new FailureStatus<Course>(ClientMessage.CourseCannotBeNull);
                 }
 
                 _courseRepository.Update(course);
-
                 _unitOfWork.Commit();
 
+                return new SuccessStatus<Course>(course);
             }
             catch (Exception ex)
             {
                 Log<CourseService>.Error(ex.Message, ex);
 
-                return new FailureStatus<Course>(ex.Message);
+                return new FailureStatus<Course>(ClientMessage.SomethingWentWrong);
             }
-
-            return new SuccessStatus<Course>(course);
         }
     }
 }

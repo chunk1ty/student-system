@@ -6,6 +6,6 @@ namespace StudentSystem.Data.Services.Contracts
 {
     public interface IStudentService
     {
-        Task<OperationStatus<bool>> EnrollStudentInCourseAsync(string studentId, int courseId);
+        Task<OperationStatus<string>> EnrollStudentInCourseAsync(string studentId, int courseId);
     }
 }

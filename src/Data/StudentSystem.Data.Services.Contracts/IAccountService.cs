@@ -5,7 +5,7 @@ namespace StudentSystem.Data.Services.Contracts
 {
     public interface IAccountService
     {
-        OperationStatus<string> CreateAsync(string email, string password);
+        Task<OperationStatus<string>> RegisterAsync(string email, string password);
 
         Task<OperationStatus<string>> LogInAsync(string email, string password);
     }

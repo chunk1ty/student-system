@@ -1,11 +1,15 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
+
 using StudentSystem.Common;
+using StudentSystem.Common.Constants;
 using StudentSystem.Data.Contracts;
 using StudentSystem.Data.Entities;
 using StudentSystem.Data.Services.Contracts;
 
 namespace StudentSystem.Data.Services
 {
+    //TODO add encryption
     public class AccountService : IAccountService
     {
         private readonly IStudentRepository _studentRepository;
@@ -17,30 +21,51 @@ namespace StudentSystem.Data.Services
             _unitOfWork = unitOfWork;
         }
 
-        public OperationStatus<string> CreateAsync(string email, string password)
+        public async Task<OperationStatus<string>> RegisterAsync(string email, string password)
         {
-            _studentRepository.Add(new Student() {Email = email, Password = password});
+            try
+            {
+                var user = await _studentRepository.GetStudentByEmailAsync(email);
+                if (user != null)
+                {
+                    return new FailureStatus<string>(string.Format(ClientMessage.UserAlreadyExist, email));
+                }
 
-            _unitOfWork.Commit();
+                _studentRepository.Add(new Student { Email = email, Password = password });
+                _unitOfWork.Commit();
 
-            return new SuccessStatus<string>("Successfully registered");
+                return new SuccessStatus<string>(ClientMessage.SuccessfullyRegistered);
+            }
+            catch (Exception ex)
+            {
+                Log<AccountService>.Error(ex.Message, ex);
+
+                return new FailureStatus<string>(ClientMessage.SomethingWentWrong);
+            }
         }
 
         public async Task<OperationStatus<string>> LogInAsync(string email, string password)
         {
-            var user = await  _studentRepository.GetStudentByEmailAsync(email);
-
-            if (user == null)
+            try
             {
-                return new FailureStatus<string>($"User with email '{email}' doesn't exist");
-            }
+                var user = await _studentRepository.GetStudentByEmailAsync(email);
+                if (user == null)
+                {
+                    return new FailureStatus<string>(string.Format(ClientMessage.UserDoesNotExist, email));
+                }
+                if (!user.Password.Equals(password))
+                {
+                    return new FailureStatus<string>(string.Format(ClientMessage.PasswordNotRecognised, email));
+                }
 
-            if (!user.Password.Equals(password))
+                return new SuccessStatus<string>(ClientMessage.LogInSuccessfully);
+            }
+            catch (Exception ex)
             {
-                return new FailureStatus<string>($"Password for user '{email}' is not recognised.");
-            }
+                Log<AccountService>.Error(ex.Message, ex);
 
-            return new SuccessStatus<string>("Log in successfully");
+                return new FailureStatus<string>(ClientMessage.SomethingWentWrong);
+            }
         }
     }
 }

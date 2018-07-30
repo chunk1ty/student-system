@@ -8,15 +8,15 @@
             Result = result;
         }
 
-        public OperationStatus(bool isSuccessful, string message)
+        public OperationStatus(bool isSuccessful, string errorMessage)
         {
             IsSuccessful = isSuccessful;
-            Message = message;
+            ErrorMessage = errorMessage;
         }
 
         public bool IsSuccessful { get; }
 
-        public string Message { get; }
+        public string ErrorMessage { get; }
        
         public T Result { get; }
     }
@@ -31,10 +31,9 @@
 
     public class FailureStatus<T> : OperationStatus<T> 
     {
-        public FailureStatus(string message)
-            : base(false, message)
+        public FailureStatus(string errorMessage)
+            : base(false, errorMessage)
         {
         }
-
     }
 }

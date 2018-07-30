@@ -24,11 +24,11 @@ namespace StudentSystem.Data.Repositories
                                                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<Course>> GetAllByStudentIdAsync(string studentId)
+        public async Task<IEnumerable<Course>> GetAllByStudentEmailAsync(string email)
         {
             return await _studentSystemDbContext.Set<Course>()
                                                 .AsNoTracking()
-                                                .Where(x => x.Students.Any(y => y.Email.Equals(studentId)))
+                                                .Where(x => x.Students.Any(y => y.Email.Equals(email)))
                                                 .ToListAsync();
         }
 

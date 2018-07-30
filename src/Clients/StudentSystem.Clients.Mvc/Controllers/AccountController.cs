@@ -47,9 +47,8 @@ namespace StudentSystem.Clients.Mvc.Controllers
 
                 return this.RedirectToAction<CourseController>(x => x.AvailableCourses());
             }
-           
-            ModelState.AddModelError(string.Empty, "Incorrent email or password.");
 
+            ModelState.AddModelError(string.Empty, result.ErrorMessage);
             return View(model);
         }
 
@@ -79,16 +78,17 @@ namespace StudentSystem.Clients.Mvc.Controllers
                 return View(model);
             }
 
-            var result =  _accountService.CreateAsync(model.Email, model.Password);
+            var result =  await _accountService.RegisterAsync(model.Email, model.Password);
 
-            if (!result.IsSuccessful)
+            if (result.IsSuccessful)
             {
-                return View(model);
+                FormsAuthentication.SetAuthCookie(model.Email, true);
+
+                return this.RedirectToAction<CourseController>(x => x.AvailableCourses());
             }
 
-            FormsAuthentication.SetAuthCookie(model.Email, true);
-
-            return this.RedirectToAction<CourseController>(x => x.AvailableCourses());
+            ModelState.AddModelError(string.Empty, result.ErrorMessage);
+            return View(model);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web.Mvc;
@@ -6,12 +7,12 @@ using StudentSystem.Clients.Mvc.ViewModels.Course;
 using StudentSystem.Data.Entities;
 using StudentSystem.Data.Services.Contracts;
 using System.Web.Mvc.Expressions;
-
+using StudentSystem.Common.Constants;
 using StudentSystem.Services.Mapping;
 
 namespace StudentSystem.Clients.Mvc.Controllers
 {
-    //TODO rename; separation of concers 
+    //TODO rename methods; separation of concers 
     [Authorize]
     public class CourseController : Controller
     {
@@ -29,7 +30,14 @@ namespace StudentSystem.Clients.Mvc.Controllers
         [HttpGet]
         public async Task<ActionResult> AvailableCourses()
         {
-            var coursesViewModel = await GetAllCourses();
+            var status = await _courseService.GetAllAsync();
+
+            if (!status.IsSuccessful)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, status.ErrorMessage);
+            }
+
+            var coursesViewModel =  _mapping.Map<IEnumerable<CourseViewModel>>(status.Result);
 
             return View(coursesViewModel);
         }
@@ -38,22 +46,27 @@ namespace StudentSystem.Clients.Mvc.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Enroll(int courseId)
         {
-            var operationStatus = await _studentService.EnrollStudentInCourseAsync(User.Identity.Name, courseId);
+            var status = await _studentService.EnrollStudentInCourseAsync(User.Identity.Name, courseId);
 
-            if (!operationStatus.IsSuccessful)
+            if (status.IsSuccessful)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return Content(ClientMessage.SuccessfullyEnrolled);
             }
 
-            return Content(operationStatus.Result ? "Successfully enrolled!" : "You are already enrolled in this course!");
+            return Content(status.ErrorMessage);
         }
 
         [HttpGet]
         public async Task<ActionResult> EnrolledCourses()
         {
-            var courses = await _courseService.GetAllByStudentEmailAsync(User.Identity.Name);
+            var status = await _courseService.GetAllByStudentEmailAsync(User.Identity.Name);
 
-            var coursesViewModel = _mapping.Map<IEnumerable<CourseViewModel>>(courses);
+            if (!status.IsSuccessful)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, status.ErrorMessage);
+            }
+
+            var coursesViewModel = _mapping.Map<IEnumerable<CourseViewModel>>(status.Result);
 
             return View(coursesViewModel);
         }
@@ -61,7 +74,14 @@ namespace StudentSystem.Clients.Mvc.Controllers
         [HttpGet]
         public async Task<ActionResult> ManageCourses()
         {
-            var coursesViewModel = await GetAllCourses();
+            var status = await _courseService.GetAllAsync();
+
+            if (!status.IsSuccessful)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, status.ErrorMessage);
+            }
+
+            var coursesViewModel = _mapping.Map<IEnumerable<CourseViewModel>>(status.Result);
 
             return View(coursesViewModel);
         }
@@ -82,27 +102,31 @@ namespace StudentSystem.Clients.Mvc.Controllers
             }
 
             var course = _mapping.Map<Course>(courseAddViewModel);
+            var status = _courseService.Add(course);
 
-            var operationStatus = _courseService.Add(course);
-
-            if (operationStatus.IsSuccessful)
+            if (status.IsSuccessful)
             {
                 return this.RedirectToAction(x => x.ManageCourses());
             }
 
-            // TODO add some error to modelstate 
-
+            ModelState.AddModelError(string.Empty, status.ErrorMessage);
             return View(courseAddViewModel);
         }
 
         [HttpGet]
         public async Task<ActionResult> Edit(int id)
         {
-            var course = await _courseService.GetByIdAsync(id);
+            var status = await _courseService.GetByIdAsync(id);
 
-            var courseViewModel = _mapping.Map<CourseViewModel>(course);
+            if (status.IsSuccessful)
+            {
+                var courseViewModel = _mapping.Map<CourseViewModel>(status.Result);
 
-            return View(courseViewModel);
+                return View(courseViewModel);
+            }
+
+            //TODO handle error messgae ?
+            return this.RedirectToAction(x => x.AvailableCourses());
         }
 
         [HttpPost]
@@ -115,16 +139,14 @@ namespace StudentSystem.Clients.Mvc.Controllers
             }
 
             var course = _mapping.Map<Course>(courseAddViewModel);
+            var status = _courseService.Update(course);
 
-            var operationStatus = _courseService.Update(course);
-
-            if (operationStatus.IsSuccessful)
+            if (status.IsSuccessful)
             {
                 return this.RedirectToAction(x => x.ManageCourses());
             }
-
-            // TODO add some error to modelstate 
-
+            
+            ModelState.AddModelError(string.Empty, status.ErrorMessage);
             return View(courseAddViewModel);
         }
 
@@ -132,23 +154,15 @@ namespace StudentSystem.Clients.Mvc.Controllers
         [HttpGet]
         public async Task<ActionResult> Delete(int id)
         {
-            var operationStatus = await _courseService.DeleteAsync(id);
+            var operationStatus = await _courseService.DeleteByIdAsync(id);
 
             if (operationStatus.IsSuccessful)
             {
                 return this.RedirectToAction(x => x.ManageCourses());
             }
 
-            // TODO add some error to modelstate 
-
-            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        }
-
-        private async Task<IEnumerable<CourseViewModel>> GetAllCourses()
-        {
-            var courses = await _courseService.GetAllAsync();
-
-            return _mapping.Map<IEnumerable<CourseViewModel>>(courses);
+            //TODO handle error messgae ?
+            return this.RedirectToAction(x => x.AvailableCourses());
         }
     }
 }

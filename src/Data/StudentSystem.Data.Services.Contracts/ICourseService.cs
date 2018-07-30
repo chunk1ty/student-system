@@ -8,15 +8,15 @@ namespace StudentSystem.Data.Services.Contracts
 {
     public interface ICourseService
     {
-        Task<IEnumerable<Course>> GetAllAsync();
+        Task<OperationStatus<IEnumerable<Course>>> GetAllAsync();
 
-        Task<IEnumerable<Course>> GetAllByStudentEmailAsync(string studentid);
+        Task<OperationStatus<IEnumerable<Course>>> GetAllByStudentEmailAsync(string email);
 
-        Task<Course> GetByIdAsync(int id);
+        Task<OperationStatus<Course>> GetByIdAsync(int id);
 
         OperationStatus<Course> Add(Course course);
 
-        Task<OperationStatus<int>> DeleteAsync(int id);
+        Task<OperationStatus<int>> DeleteByIdAsync(int id);
 
         OperationStatus<Course> Update(Course course);
     }

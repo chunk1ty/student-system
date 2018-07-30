@@ -3,7 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using StudentSystem.Common;
-
+using StudentSystem.Common.Constants;
 using StudentSystem.Data.Contracts;
 using StudentSystem.Data.Services.Contracts;
 
@@ -25,30 +25,32 @@ namespace StudentSystem.Data.Services
             _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
         }
 
-        public async Task<OperationStatus<bool>> EnrollStudentInCourseAsync(string email, int courseId)
+        public async Task<OperationStatus<string>> EnrollStudentInCourseAsync(string email, int courseId)
         {
             try
             {
                 var student = await _studentRepository.GetStudentByEmailAsync(email);
-
                 if (student.Courses.Any(c => c.Id == courseId))
                 {
-                    return new SuccessStatus<bool>(false);
+                    return new FailureStatus<string>(ClientMessage.AlreadyEnrolledInThisCourse);
                 }
 
                 var course = await _courseRepository.GetByIdAsync(courseId);
+                if (course == null)
+                {
+                    return new FailureStatus<string>(ClientMessage.CourseDoesNotExist);
+                }
 
                 student.Courses.Add(course);
                 _unitOfWork.Commit();
 
-                return new SuccessStatus<bool>(true);
-
+                return new SuccessStatus<string>(string.Empty);
             }
             catch (Exception ex)
             {
                 Log<StudentService>.Error(ex.Message, ex);
 
-                return new FailureStatus<bool>(ex.Message);
+                return new FailureStatus<string>(ClientMessage.SomethingWentWrong);
             }
         }
     }
