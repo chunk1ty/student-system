@@ -1,7 +1,5 @@
 ﻿using System.Data.Entity;
 
-using Microsoft.AspNet.Identity.EntityFramework;
-
 using StudentSystem.Data.Contracts;
 using StudentSystem.Data.Entities;
 
