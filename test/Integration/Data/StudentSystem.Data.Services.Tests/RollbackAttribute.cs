@@ -5,7 +5,7 @@ using NUnit.Framework.Interfaces;
 
 namespace StudentSystem.Data.Services.Tests
 {
-    public class IsolationAttribute : Attribute, ITestAction
+    public class RollbackAttribute : Attribute, ITestAction
     {
         private TransactionScope _transaction;
 
@@ -19,6 +19,6 @@ namespace StudentSystem.Data.Services.Tests
             _transaction.Dispose();
         }
 
-        public ActionTargets Targets => ActionTargets.Default;
+        public ActionTargets Targets => ActionTargets.Test;
     }
 }

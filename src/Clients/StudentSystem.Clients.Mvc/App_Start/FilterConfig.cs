@@ -1,14 +1,14 @@
-﻿using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
+
+using StudentSystem.Clients.Mvc.Infrastructure.Filters;
 
 namespace StudentSystem.Clients.Mvc
 {
     public class FilterConfig
     {
-        //TODO add loging when exeption occurred 
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
-            filters.Add(new HandleErrorAttribute());
+            filters.Add(new StudentSystemExeptionAttribute());
         }
     }
 }

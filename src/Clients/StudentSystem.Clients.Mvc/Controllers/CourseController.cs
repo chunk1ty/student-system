@@ -3,28 +3,25 @@ using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+
 using StudentSystem.Clients.Mvc.ViewModels.Course;
 using StudentSystem.Data.Entities;
 using StudentSystem.Data.Services.Contracts;
 using System.Web.Mvc.Expressions;
-using StudentSystem.Common.Constants;
 using StudentSystem.Infrastructure.Mapping;
 
 namespace StudentSystem.Clients.Mvc.Controllers
 {
-    //TODO rename methods; separation of concers 
     [Authorize]
     public class CourseController : Controller
     {
         private readonly ICourseService _courseService;
-        private readonly IStudentService _studentService;
         private readonly IMappingService _mapping;
 
-        public CourseController(ICourseService courseService, IMappingService mapping, IStudentService studentService)
+        public CourseController(ICourseService courseService, IMappingService mapping)
         {
-            _courseService = courseService;
-            _mapping = mapping;
-            _studentService = studentService;
+            _courseService = courseService ?? throw  new ArgumentNullException(nameof(courseService));
+            _mapping = mapping ?? throw new ArgumentNullException(nameof(mapping));
         }
 
         [HttpGet]
@@ -38,35 +35,6 @@ namespace StudentSystem.Clients.Mvc.Controllers
             }
 
             var coursesViewModel =  _mapping.Map<IEnumerable<CourseViewModel>>(status.Result);
-
-            return View(coursesViewModel);
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Enroll(int courseId)
-        {
-            var status = await _studentService.EnrollStudentInCourseAsync(User.Identity.Name, courseId);
-
-            if (status.IsSuccessful)
-            {
-                return Content(ClientMessage.SuccessfullyEnrolled);
-            }
-
-            return Content(status.ErrorMessage);
-        }
-
-        [HttpGet]
-        public async Task<ActionResult> EnrolledCourses()
-        {
-            var status = await _courseService.GetAllByStudentEmailAsync(User.Identity.Name);
-
-            if (!status.IsSuccessful)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, status.ErrorMessage);
-            }
-
-            var coursesViewModel = _mapping.Map<IEnumerable<CourseViewModel>>(status.Result);
 
             return View(coursesViewModel);
         }
@@ -149,8 +117,7 @@ namespace StudentSystem.Clients.Mvc.Controllers
             ModelState.AddModelError(string.Empty, status.ErrorMessage);
             return View(courseAddViewModel);
         }
-
-        //TODO post
+       
         [HttpGet]
         public async Task<ActionResult> Delete(int id)
         {

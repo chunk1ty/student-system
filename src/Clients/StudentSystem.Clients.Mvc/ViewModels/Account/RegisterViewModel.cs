@@ -1,24 +1,25 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
+using StudentSystem.Common.Constants;
+
 namespace StudentSystem.Clients.Mvc.ViewModels.Account
 {
     public class RegisterViewModel
     {
         [Required]
         [EmailAddress]
-        [Display(Name = "Email")]
+        [Display(Name = ClientMessage.Email)]
         public string Email { get; set; }
 
         [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Display(Name = ClientMessage.Password)]
+        [StringLength(100, ErrorMessage = ClientMessage.PasswordLength, MinimumLength = 6)]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        [Display(Name = ClientMessage.ConfirmPassword)]
+        [Compare(nameof(Password), ErrorMessage = ClientMessage.PasswordDoesNotMatch)]
         public string ConfirmPassword { get; set; }
     }
-
 }

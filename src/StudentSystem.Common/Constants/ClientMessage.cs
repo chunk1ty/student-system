@@ -18,5 +18,17 @@
         public const string AlreadyEnrolledInThisCourse = "You are already enrolled in this course!";
 
         public const string SomethingWentWrong = "Something went wrong. Please try again or contact your administrator";
+
+        public const string PasswordLength = "The {0} must be at least {2} characters long.";
+
+        public const string Email = "Email";
+
+        public const string Password = "Password";
+
+        public const string RememberMe = "Remember me?";
+
+        public const string PasswordDoesNotMatch = "The password and confirmation password do not match.";
+
+        public const string ConfirmPassword = "Confirm password.";
     }
 }

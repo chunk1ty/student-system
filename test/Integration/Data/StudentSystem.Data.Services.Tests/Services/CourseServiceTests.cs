@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
+
 using Ninject;
 using NUnit.Framework;
+
 using StudentSystem.Clients.Mvc;
 using StudentSystem.Common;
 using StudentSystem.Data.Entities;
@@ -11,10 +12,10 @@ using StudentSystem.Data.Services.Contracts;
 
 namespace StudentSystem.Data.Services.Tests.Services
 {
-    [TestFixture, Isolation]
+    [TestFixture, Rollback]
     public class CourseServiceTests
     {
-        private static IKernel _kernel;
+        private IKernel _kernel;
 
         private static readonly List<Course> Courses = new List<Course>()
         {
@@ -47,17 +48,15 @@ namespace StudentSystem.Data.Services.Tests.Services
         [SetUp]
         public void SetUp()
         {
-            Database.SetInitializer(new MigrateDatabaseToLatestVersion<StudentSystemDbContext, TestDbConfiguration>());
-
             _kernel = NinjectConfig.CreateKernel();
-            var dbContext = _kernel.Get<StudentSystemDbContext>();
+            var studentSystemDbContext = _kernel.Get<StudentSystemDbContext>();
 
             foreach (var course in Courses)
             {
-                dbContext.Courses.Add(course);
+                studentSystemDbContext.Courses.Add(course);
             }
 
-            dbContext.SaveChanges();
+            studentSystemDbContext.SaveChanges();
         }
 
         [Test]
@@ -76,5 +75,23 @@ namespace StudentSystem.Data.Services.Tests.Services
             Assert.AreEqual(1, courses.Result.Count());
             Assert.AreEqual("Math", courses.Result.First().Name);
         }
+
+        [Test]
+        public async Task GetAllByStudentEmailAsync_WithInValidEmail_ShouldReturnEmpty()
+        {
+            // Arrange
+            const string email = "nothing@ankk.com";
+
+            var claaService = _kernel.Get<ICourseService>();
+
+            // Act
+            var courses = await claaService.GetAllByStudentEmailAsync(email);
+
+            // Assert
+            Assert.IsInstanceOf<OperationStatus<IEnumerable<Course>>>(courses);
+            Assert.AreEqual(0, courses.Result.Count());
+        }
+
+        //TODO add move tests if i have time
     }
 }

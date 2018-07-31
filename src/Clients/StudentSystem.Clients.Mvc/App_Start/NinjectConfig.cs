@@ -54,8 +54,9 @@ namespace StudentSystem.Clients.Mvc
                 kernel.Bind<Func<IKernel>>().ToMethod(ctx => () => new Bootstrapper().Kernel);
                 kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
 
-                RegisterServices(kernel);
+                RegisterMvcModule(kernel);
                 RegisterDataModule(kernel);
+                RegisterInfrastructureModule(kernel);
                 return kernel;
             }
             catch
@@ -64,16 +65,15 @@ namespace StudentSystem.Clients.Mvc
                 throw;
             }
         }
-
-        /// <summary>
-        /// Load your modules or register your services here!
-        /// </summary>
-        /// <param name="kernel">The kernel.</param>
-        private static void RegisterServices(IKernel kernel)
+       
+        private static void RegisterMvcModule(IKernel kernel)
         {
-            kernel.Bind<IMappingService>().To<MappingService>();
             kernel.Bind<FormsAuthenticationWrapper>().ToSelf().InRequestScope();
+        }
 
+        private static void RegisterInfrastructureModule(IKernel kernel)
+        {
+            kernel.Bind<IMappingService>().To<MappingService>().InSingletonScope();
             kernel.Bind<ICypher>().To<RijndaelPbkdf2Cyhper>().InSingletonScope();
         }
 

@@ -1,21 +1,23 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
+using StudentSystem.Common.Constants;
+
 namespace StudentSystem.Clients.Mvc.ViewModels.Account
 {
     public class LoginViewModel
     {
         [Required]
-        [Display(Name = "Email")]
         [EmailAddress]
+        [Display(Name = ClientMessage.Email)]
         public string Email { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Display(Name = ClientMessage.Password)]
+        [StringLength(100, ErrorMessage = ClientMessage.PasswordLength, MinimumLength = 6)]
         public string Password { get; set; }
 
-        [Display(Name = "Remember me?")]
+        [Display(Name = ClientMessage.RememberMe)]
         public bool RememberMe { get; set; }
     }
-
 }
