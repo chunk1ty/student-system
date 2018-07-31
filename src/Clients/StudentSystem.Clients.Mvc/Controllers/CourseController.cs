@@ -25,13 +25,14 @@ namespace StudentSystem.Clients.Mvc.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> AvailableCourses()
+        public async Task<ActionResult> Index()
         {
             var status = await _courseService.GetAllAsync();
-
             if (!status.IsSuccessful)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, status.ErrorMessage);
+                ModelState.AddModelError(string.Empty, status.ErrorMessage);
+
+                return View(new List<CourseViewModel>());
             }
 
             var coursesViewModel =  _mapping.Map<IEnumerable<CourseViewModel>>(status.Result);
@@ -40,13 +41,14 @@ namespace StudentSystem.Clients.Mvc.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> ManageCourses()
+        public async Task<ActionResult> Manage()
         {
             var status = await _courseService.GetAllAsync();
-
             if (!status.IsSuccessful)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, status.ErrorMessage);
+                ModelState.AddModelError(string.Empty, status.ErrorMessage);
+
+                return View(new List<CourseViewModel>());
             }
 
             var coursesViewModel = _mapping.Map<IEnumerable<CourseViewModel>>(status.Result);
@@ -71,10 +73,9 @@ namespace StudentSystem.Clients.Mvc.Controllers
 
             var course = _mapping.Map<Course>(courseAddViewModel);
             var status = _courseService.Add(course);
-
             if (status.IsSuccessful)
             {
-                return this.RedirectToAction(x => x.ManageCourses());
+                return this.RedirectToAction(x => x.Manage());
             }
 
             ModelState.AddModelError(string.Empty, status.ErrorMessage);
@@ -93,8 +94,9 @@ namespace StudentSystem.Clients.Mvc.Controllers
                 return View(courseViewModel);
             }
 
-            //TODO handle error messgae ?
-            return this.RedirectToAction(x => x.AvailableCourses());
+            ModelState.AddModelError(string.Empty, status.ErrorMessage);
+
+            return this.RedirectToAction(x => x.Index());
         }
 
         [HttpPost]
@@ -111,7 +113,7 @@ namespace StudentSystem.Clients.Mvc.Controllers
 
             if (status.IsSuccessful)
             {
-                return this.RedirectToAction(x => x.ManageCourses());
+                return this.RedirectToAction(x => x.Manage());
             }
             
             ModelState.AddModelError(string.Empty, status.ErrorMessage);
@@ -121,15 +123,15 @@ namespace StudentSystem.Clients.Mvc.Controllers
         [HttpGet]
         public async Task<ActionResult> Delete(int id)
         {
-            var operationStatus = await _courseService.DeleteByIdAsync(id);
-
-            if (operationStatus.IsSuccessful)
+            var status = await _courseService.DeleteByIdAsync(id);
+            if (status.IsSuccessful)
             {
-                return this.RedirectToAction(x => x.ManageCourses());
+                return this.RedirectToAction(x => x.Manage());
             }
 
-            //TODO handle error messgae ?
-            return this.RedirectToAction(x => x.AvailableCourses());
+            ModelState.AddModelError(string.Empty, status.ErrorMessage);
+
+            return this.RedirectToAction(x => x.Index());
         }
     }
 }

@@ -9,8 +9,6 @@ namespace StudentSystem.Data.Contracts
     {
         Task<IEnumerable<Course>> GetAllAsync();
 
-        Task<IEnumerable<Course>> GetAllByStudentEmailAsync(string studentId);
-
         Task<Course> GetByIdAsync(int id);
 
         void Add(Course entity);

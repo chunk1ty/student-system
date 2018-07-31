@@ -1,0 +1,31 @@
+﻿@model StudentSystem.Clients.Mvc.ViewModels.Student.StudentCoursesViewModel
+
+<h1>
+    Enrolled courses
+</h1>
+
+<hr />
+
+@(Html.ActionLink<CourseController>("Back", c => c.Index(), null, new { @class = "btn btn-default" }))
+
+<div>
+    @Html.Grid(Model.Enrolled).Columns(columns =>
+    {
+        columns.Add(c => c.Name).Titled("Name");
+    })
+</div>
+
+<hr />
+
+<h1>
+    Not yet enrolled courses
+</h1>
+
+<hr />
+
+<div>
+    @Html.Grid(Model.NotEnrolled).Columns(columns =>
+    {
+        columns.Add(c => c.Name).Titled("Name");
+    })
+</div>

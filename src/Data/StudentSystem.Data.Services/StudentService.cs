@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -6,7 +7,9 @@ using StudentSystem.Common;
 using StudentSystem.Common.Constants;
 using StudentSystem.Common.Logging;
 using StudentSystem.Data.Contracts;
+using StudentSystem.Data.Entities;
 using StudentSystem.Data.Services.Contracts;
+using StudentSystem.Data.Services.Contracts.Models;
 
 namespace StudentSystem.Data.Services
 {
@@ -30,7 +33,7 @@ namespace StudentSystem.Data.Services
         {
             try
             {
-                var student = await _studentRepository.GetStudentByEmailAsync(email);
+                var student = await _studentRepository.GetStudentWithCoursesByEmailAsync(email);
                 if (student.Courses.Any(c => c.Id == courseId))
                 {
                     return new FailureStatus<string>(ClientMessage.AlreadyEnrolledInThisCourse);
@@ -52,6 +55,28 @@ namespace StudentSystem.Data.Services
                 Log<StudentService>.Error(ex.Message, ex);
 
                 return new FailureStatus<string>(ClientMessage.SomethingWentWrong);
+            }
+        }
+
+        public async Task<OperationStatus<StudentCourses>> GetStudentCourses(string email)
+        {
+            try
+            {
+                var student = await _studentRepository.GetStudentWithCoursesByEmailAsync(email);
+
+                var courses = await _courseRepository.GetAllAsync();
+
+                var enrolledCoursesIds = student.Courses.Select(x => x.Id)
+                                                        .ToList();
+                var notEnrolledCourses = courses.Where(x => !enrolledCoursesIds.Contains(x.Id));
+
+                return new SuccessStatus<StudentCourses>(new StudentCourses(student.Courses, notEnrolledCourses));
+            }
+            catch (Exception ex)
+            {
+                Log<CourseService>.Error(ex.Message, ex);
+
+                return new FailureStatus<StudentCourses>(ClientMessage.SomethingWentWrong);
             }
         }
     }

@@ -6,13 +6,13 @@ using Ninject;
 using NUnit.Framework;
 
 using StudentSystem.Clients.Mvc;
-using StudentSystem.Common;
 using StudentSystem.Data.Entities;
 using StudentSystem.Data.Services.Contracts;
 
 namespace StudentSystem.Data.Services.Tests.Services
 {
-    [TestFixture, Rollback]
+    // TODO add more tests
+    [TestFixture]
     public class CourseServiceTests
     {
         private IKernel _kernel;
@@ -21,27 +21,15 @@ namespace StudentSystem.Data.Services.Tests.Services
         {
             new Course
             {
-                Name = "Math",
-                Students = new List<Student>()
-                {
-                    new Student()
-                    {
-                        Email = "ankk@ankk.com",
-                        Password = "123456"
-                    }
-                }
+                Name = "Math"
             },
             new Course
             {
-                Name = "English",
-                Students = new List<Student>()
-                {
-                    new Student()
-                    {
-                        Email = "test@ankk.com",
-                        Password = "123456"
-                    }
-                }
+                Name = "English"
+            },
+            new Course
+            {
+                Name = "Biology"
             }
         };
 
@@ -60,38 +48,49 @@ namespace StudentSystem.Data.Services.Tests.Services
         }
 
         [Test]
-        public async Task GetAllByStudentEmailAsync_WithValidEmail_ShouldReturnCourses()
+        public async Task GetAllAsync_WithDefaultFlow_ShouldReturnAllCourses()
         {
             // Arrange
-            const string email = "ankk@ankk.com";
-
             var claaService = _kernel.Get<ICourseService>();
 
             // Act
-            var courses = await claaService.GetAllByStudentEmailAsync(email);
+            var status = await claaService.GetAllAsync();
 
             // Assert
-            Assert.IsInstanceOf<OperationStatus<IEnumerable<Course>>>(courses);
-            Assert.AreEqual(1, courses.Result.Count());
-            Assert.AreEqual("Math", courses.Result.First().Name);
+            Assert.AreEqual(3, status.Result.Count());
+            Assert.IsTrue(status.IsSuccessful);
         }
 
         [Test]
-        public async Task GetAllByStudentEmailAsync_WithInValidEmail_ShouldReturnEmpty()
+        public async Task GetByIdAsync_WhenCourseIdExists_ShouldReturnCourse()
         {
             // Arrange
-            const string email = "nothing@ankk.com";
+            var course = Courses[0];
 
             var claaService = _kernel.Get<ICourseService>();
 
             // Act
-            var courses = await claaService.GetAllByStudentEmailAsync(email);
+            var status = await claaService.GetByIdAsync(course.Id);
 
             // Assert
-            Assert.IsInstanceOf<OperationStatus<IEnumerable<Course>>>(courses);
-            Assert.AreEqual(0, courses.Result.Count());
+            Assert.AreEqual("Math", status.Result.Name);
+            Assert.IsTrue(status.IsSuccessful);
         }
 
-        //TODO add move tests if i have time
+        [Test]
+        public async Task GetByIdAsync_WhenCourseIdDoesNotExit_ShouldReturnNull()
+        {
+            // Arrange
+            var courseId = -1;
+
+            var claaService = _kernel.Get<ICourseService>();
+
+            // Act
+            var status = await claaService.GetByIdAsync(courseId);
+
+            // Assert
+           Assert.IsNull(status.Result);
+           Assert.IsTrue(status.IsSuccessful);
+        }
     }
 }

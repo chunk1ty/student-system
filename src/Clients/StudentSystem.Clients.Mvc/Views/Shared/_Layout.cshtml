@@ -26,10 +26,10 @@
                     @if (User.Identity.IsAuthenticated)
                     {
                         <li>
-                            @(Html.ActionLink<CourseController>("Available Coursess", x => x.AvailableCourses()))
+                            @(Html.ActionLink<CourseController>("Available Coursess", x => x.Index()))
                         </li>
                         <li>
-                            @(Html.ActionLink<CourseController>("Manage courses", x => x.ManageCourses()))
+                            @(Html.ActionLink<CourseController>("Manage courses", x => x.Manage()))
                         </li>
                     }
                 </ul>

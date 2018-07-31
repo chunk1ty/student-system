@@ -31,7 +31,7 @@ namespace StudentSystem.Data.Services
         {
             try
             {
-                var user = await _studentRepository.GetStudentByEmailAsync(email);
+                var user = await _studentRepository.GetStudentWithCoursesByEmailAsync(email);
                 if (user != null)
                 {
                     return new FailureStatus<string>(string.Format(ClientMessage.UserAlreadyExist, email));
@@ -56,7 +56,7 @@ namespace StudentSystem.Data.Services
         {
             try
             {
-                var user = await _studentRepository.GetStudentByEmailAsync(email);
+                var user = await _studentRepository.GetStudentWithCoursesByEmailAsync(email);
                 if (user == null)
                 {
                     return new FailureStatus<string>(string.Format(ClientMessage.UserDoesNotExist, email));

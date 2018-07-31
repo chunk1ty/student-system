@@ -9,11 +9,11 @@ using StudentSystem.Clients.Mvc.Controllers;
 using StudentSystem.Clients.Mvc.Infrastructure;
 using StudentSystem.Clients.Mvc.ViewModels.Account;
 using StudentSystem.Common;
-using StudentSystem.Data.Services;
 using StudentSystem.Data.Services.Contracts;
 
 namespace StudentSystem.Clients.Mvc.Tests.Controllers
 {
+    // TODO add more tests
     [TestFixture]
     public class AccountControllerTests
     {
@@ -58,7 +58,7 @@ namespace StudentSystem.Clients.Mvc.Tests.Controllers
 
             // Act & Assert
             accountController.WithCallTo(c => c.Login())
-                             .ShouldRedirectTo<CourseController>(x => x.AvailableCourses());
+                             .ShouldRedirectTo<CourseController>(x => x.Index());
         }
 
         [Test]
@@ -117,7 +117,7 @@ namespace StudentSystem.Clients.Mvc.Tests.Controllers
 
             // Act & Assert
             accountController.WithCallTo(c => c.Login(model))
-                             .ShouldRedirectTo<CourseController>(x => x.AvailableCourses());
+                             .ShouldRedirectTo<CourseController>(x => x.Index());
 
             _mockedFormsAuthenticationWrapper.Verify(x => x.SetAuthCookie(It.IsAny<string>(), It.IsAny<bool>()), Times.Once);
         }
@@ -206,7 +206,7 @@ namespace StudentSystem.Clients.Mvc.Tests.Controllers
 
             // Act & Assert
             accountController.WithCallTo(c => c.Register(model))
-                             .ShouldRedirectTo<CourseController>(x => x.AvailableCourses());
+                             .ShouldRedirectTo<CourseController>(x => x.Index());
 
             _mockedFormsAuthenticationWrapper.Verify(x => x.SetAuthCookie(It.IsAny<string>(), It.IsAny<bool>()), Times.Once);
         }

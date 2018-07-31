@@ -37,6 +37,7 @@
     <Compile Include="IAccountService.cs" />
     <Compile Include="ICourseService.cs" />
     <Compile Include="IStudentService.cs" />
+    <Compile Include="Models\StudentCourses.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

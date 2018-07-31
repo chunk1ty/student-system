@@ -38,22 +38,6 @@ namespace StudentSystem.Data.Services
             }
         }
 
-        public async Task<OperationStatus<IEnumerable<Course>>> GetAllByStudentEmailAsync(string email)
-        {
-            try
-            {
-                var courses = await _courseRepository.GetAllByStudentEmailAsync(email);
-
-                return new SuccessStatus<IEnumerable<Course>>(courses);
-            }
-            catch (Exception ex)
-            {
-                Log<CourseService>.Error(ex.Message, ex);
-
-                return new FailureStatus<IEnumerable<Course>>(ClientMessage.SomethingWentWrong);
-            }
-        }
-
         public async Task<OperationStatus<Course>> GetByIdAsync(int id)
         {
             try

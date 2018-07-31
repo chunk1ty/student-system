@@ -6,7 +6,7 @@ namespace StudentSystem.Data.Contracts
 {
     public interface IStudentRepository
     {
-        Task<Student> GetStudentByEmailAsync(string email);
+        Task<Student> GetStudentWithCoursesByEmailAsync(string email);
 
         void Add(Student entity);
     }

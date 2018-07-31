@@ -29,7 +29,7 @@ namespace StudentSystem.Clients.Mvc.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                return this.RedirectToAction<CourseController>(x => x.AvailableCourses());
+                return this.RedirectToAction<CourseController>(x => x.Index());
             }
 
             return View();
@@ -51,7 +51,7 @@ namespace StudentSystem.Clients.Mvc.Controllers
             {
                 _formsAuthenticationWrapper.SetAuthCookie(model.Email, model.RememberMe);
 
-                return this.RedirectToAction<CourseController>(x => x.AvailableCourses());
+                return this.RedirectToAction<CourseController>(x => x.Index());
             }
 
             ModelState.AddModelError(string.Empty, result.ErrorMessage);
@@ -90,7 +90,7 @@ namespace StudentSystem.Clients.Mvc.Controllers
             {
                 _formsAuthenticationWrapper.SetAuthCookie(model.Email, true);
 
-                return this.RedirectToAction<CourseController>(x => x.AvailableCourses());
+                return this.RedirectToAction<CourseController>(x => x.Index());
             }
 
             ModelState.AddModelError(string.Empty, result.ErrorMessage);

@@ -10,8 +10,6 @@ namespace StudentSystem.Data.Services.Contracts
     {
         Task<OperationStatus<IEnumerable<Course>>> GetAllAsync();
 
-        Task<OperationStatus<IEnumerable<Course>>> GetAllByStudentEmailAsync(string email);
-
         Task<OperationStatus<Course>> GetByIdAsync(int id);
 
         OperationStatus<Course> Add(Course course);
