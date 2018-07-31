@@ -42,6 +42,7 @@ namespace StudentSystem.Infrastructure.Security
             return result;
         }
 
+        // not in use
         public string Decrypt(string value)
         {
             var rijndael = new RijndaelManaged();

@@ -45,16 +45,15 @@ namespace StudentSystem.Clients.Mvc.Controllers
                 return View(model);
             }
 
-            var result =  await _accountService.LogInAsync(model.Email, model.Password);
-
-            if (result.IsSuccessful)
+            var operation =  await _accountService.LogInAsync(model.Email, model.Password);
+            if (operation.IsSuccessful)
             {
                 _formsAuthenticationWrapper.SetAuthCookie(model.Email, model.RememberMe);
 
                 return this.RedirectToAction<CourseController>(x => x.Index());
             }
 
-            ModelState.AddModelError(string.Empty, result.ErrorMessage);
+            ModelState.AddModelError(string.Empty, operation.ErrorMessage);
             return View(model);
         }
 
@@ -84,16 +83,15 @@ namespace StudentSystem.Clients.Mvc.Controllers
                 return View(model);
             }
 
-            var result =  await _accountService.RegisterAsync(model.Email, model.Password);
-
-            if (result.IsSuccessful)
+            var operation =  await _accountService.RegisterAsync(model.Email, model.Password);
+            if (operation.IsSuccessful)
             {
                 _formsAuthenticationWrapper.SetAuthCookie(model.Email, true);
 
                 return this.RedirectToAction<CourseController>(x => x.Index());
             }
 
-            ModelState.AddModelError(string.Empty, result.ErrorMessage);
+            ModelState.AddModelError(string.Empty, operation.ErrorMessage);
             return View(model);
         }
     }

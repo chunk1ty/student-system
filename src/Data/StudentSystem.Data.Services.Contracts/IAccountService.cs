@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+
 using StudentSystem.Common;
 
 namespace StudentSystem.Data.Services.Contracts

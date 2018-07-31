@@ -22,9 +22,9 @@ namespace StudentSystem.Data.Services
             IUnitOfWork unitOfWork, 
             ICypher cypher)
         {
-            _studentRepository = studentRepository;
-            _unitOfWork = unitOfWork;
-            _cypher = cypher;
+            _studentRepository = studentRepository ?? throw new ArgumentNullException(nameof(studentRepository));
+            _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
+            _cypher = cypher ?? throw new ArgumentNullException(nameof(cypher));
         }
 
         public async Task<OperationStatus<string>> RegisterAsync(string email, string password)

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Net;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 
@@ -33,33 +32,31 @@ namespace StudentSystem.Clients.Mvc.Controllers
                 ModelState.AddModelError(string.Empty, error);
             }
 
-            var status = await _courseService.GetAllAsync();
-            if (!status.IsSuccessful)
+            var operation = await _courseService.GetAllAsync();
+            if (operation.IsSuccessful)
             {
-                ModelState.AddModelError(string.Empty, status.ErrorMessage);
+                var coursesViewModel = _mapping.Map<IEnumerable<CourseViewModel>>(operation.Result);
 
-                return View(new List<CourseViewModel>());
+                return View(coursesViewModel);
             }
 
-            var coursesViewModel =  _mapping.Map<IEnumerable<CourseViewModel>>(status.Result);
-
-            return View(coursesViewModel);
+            ModelState.AddModelError(string.Empty, operation.ErrorMessage);
+            return View(new List<CourseViewModel>());
         }
 
         [HttpGet]
         public async Task<ActionResult> Manage()
         {
-            var status = await _courseService.GetAllAsync();
-            if (!status.IsSuccessful)
+            var operation = await _courseService.GetAllAsync();
+            if (operation.IsSuccessful)
             {
-                TempData["Error"] = status.ErrorMessage;
+                var coursesViewModel = _mapping.Map<IEnumerable<CourseViewModel>>(operation.Result);
 
-                return this.RedirectToAction(x => x.Index());
+                return View(coursesViewModel);
             }
 
-            var coursesViewModel = _mapping.Map<IEnumerable<CourseViewModel>>(status.Result);
-
-            return View(coursesViewModel);
+            TempData["Error"] = operation.ErrorMessage;
+            return this.RedirectToAction(x => x.Index());
         }
 
         [HttpGet]
@@ -78,32 +75,28 @@ namespace StudentSystem.Clients.Mvc.Controllers
             }
 
             var course = _mapping.Map<Course>(courseAddViewModel);
-            var status = _courseService.Add(course);
-            if (status.IsSuccessful)
+            var operation = _courseService.Add(course);
+            if (operation.IsSuccessful)
             {
-                TempData["Error"] = status.ErrorMessage;
-
                 return this.RedirectToAction(x => x.Index());
             }
 
-            ModelState.AddModelError(string.Empty, status.ErrorMessage);
+            ModelState.AddModelError(string.Empty, operation.ErrorMessage);
             return View(courseAddViewModel);
         }
 
         [HttpGet]
         public async Task<ActionResult> Edit(int id)
         {
-            var status = await _courseService.GetByIdAsync(id);
-
-            if (status.IsSuccessful)
+            var operation = await _courseService.GetByIdAsync(id);
+            if (operation.IsSuccessful)
             {
-                var courseViewModel = _mapping.Map<CourseViewModel>(status.Result);
+                var courseViewModel = _mapping.Map<CourseViewModel>(operation.Result);
 
                 return View(courseViewModel);
             }
 
-            TempData["Error"] = status.ErrorMessage;
-
+            TempData["Error"] = operation.ErrorMessage;
             return this.RedirectToAction(x => x.Index());
         }
 
@@ -117,28 +110,26 @@ namespace StudentSystem.Clients.Mvc.Controllers
             }
 
             var course = _mapping.Map<Course>(courseAddViewModel);
-            var status = _courseService.Update(course);
-
-            if (status.IsSuccessful)
+            var operation = _courseService.Update(course);
+            if (operation.IsSuccessful)
             {
                 return this.RedirectToAction(x => x.Manage());
             }
             
-            ModelState.AddModelError(string.Empty, status.ErrorMessage);
+            ModelState.AddModelError(string.Empty, operation.ErrorMessage);
             return View(courseAddViewModel);
         }
        
         [HttpGet]
         public async Task<ActionResult> Delete(int id)
         {
-            var status = await _courseService.DeleteByIdAsync(id);
-            if (status.IsSuccessful)
+            var operation = await _courseService.DeleteByIdAsync(id);
+            if (operation.IsSuccessful)
             {
                 return this.RedirectToAction(x => x.Manage());
             }
 
-            TempData["Error"] = status.ErrorMessage;
-
+            TempData["Error"] = operation.ErrorMessage;
             return this.RedirectToAction(x => x.Index());
         }
     }

@@ -12,7 +12,7 @@ using StudentSystem.Data.Services.Contracts;
 namespace StudentSystem.Data.Services.Tests.Services
 {
     // TODO add more tests
-    [TestFixture]
+    [TestFixture, Rollback]
     public class CourseServiceTests
     {
         private IKernel _kernel;
@@ -54,11 +54,11 @@ namespace StudentSystem.Data.Services.Tests.Services
             var claaService = _kernel.Get<ICourseService>();
 
             // Act
-            var status = await claaService.GetAllAsync();
+            var operation = await claaService.GetAllAsync();
 
             // Assert
-            Assert.AreEqual(3, status.Result.Count());
-            Assert.IsTrue(status.IsSuccessful);
+            Assert.AreEqual(3, operation.Result.Count());
+            Assert.IsTrue(operation.IsSuccessful);
         }
 
         [Test]
@@ -70,11 +70,11 @@ namespace StudentSystem.Data.Services.Tests.Services
             var claaService = _kernel.Get<ICourseService>();
 
             // Act
-            var status = await claaService.GetByIdAsync(course.Id);
+            var operation = await claaService.GetByIdAsync(course.Id);
 
             // Assert
-            Assert.AreEqual("Math", status.Result.Name);
-            Assert.IsTrue(status.IsSuccessful);
+            Assert.AreEqual("Math", operation.Result.Name);
+            Assert.IsTrue(operation.IsSuccessful);
         }
 
         [Test]
@@ -86,11 +86,11 @@ namespace StudentSystem.Data.Services.Tests.Services
             var claaService = _kernel.Get<ICourseService>();
 
             // Act
-            var status = await claaService.GetByIdAsync(courseId);
+            var operation = await claaService.GetByIdAsync(courseId);
 
             // Assert
-           Assert.IsNull(status.Result);
-           Assert.IsTrue(status.IsSuccessful);
+           Assert.IsNull(operation.Result);
+           Assert.IsTrue(operation.IsSuccessful);
         }
     }
 }

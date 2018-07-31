@@ -19,7 +19,7 @@
 
         public const string SomethingWentWrong = "Something went wrong. Please try again or contact your administrator";
 
-        public const string PasswordLength = "The {0} must be at least {2} characters long.";
+        public const string MaxAndMinLength = "The {0} must be at least {2} characters long.";
 
         public const string Email = "Email";
 

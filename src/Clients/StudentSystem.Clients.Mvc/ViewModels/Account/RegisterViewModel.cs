@@ -14,7 +14,7 @@ namespace StudentSystem.Clients.Mvc.ViewModels.Account
         [Required]
         [DataType(DataType.Password)]
         [Display(Name = ClientMessage.Password)]
-        [StringLength(100, ErrorMessage = ClientMessage.PasswordLength, MinimumLength = 6)]
+        [StringLength(100, ErrorMessage = ClientMessage.MaxAndMinLength, MinimumLength = 6)]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]

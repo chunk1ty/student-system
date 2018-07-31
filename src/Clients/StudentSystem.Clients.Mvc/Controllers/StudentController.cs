@@ -23,30 +23,30 @@ namespace StudentSystem.Clients.Mvc.Controllers
         [HttpGet]
         public async Task<ActionResult> Courses()
         {
-            var status = await _studentService.GetStudentCourses(User.Identity.Name);
-            if (!status.IsSuccessful)
+            var operation = await _studentService.GetStudentCourses(User.Identity.Name);
+            if (operation.IsSuccessful)
             {
-                TempData["Error"] = status.ErrorMessage;
+                var coursesViewModel = _mapping.Map<StudentCoursesViewModel>(operation.Result);
 
-                return this.RedirectToAction<CourseController>(x => x.Index());
+                return View(coursesViewModel);
             }
 
-            var coursesViewModel = _mapping.Map<StudentCoursesViewModel>(status.Result);
+            TempData["Error"] = operation.ErrorMessage;
 
-            return View(coursesViewModel);
+            return this.RedirectToAction<CourseController>(x => x.Index());
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Enroll(int courseId)
         {
-            var status = await _studentService.EnrollStudentInCourseAsync(User.Identity.Name, courseId);
-            if (status.IsSuccessful)
+            var operation = await _studentService.EnrollStudentInCourseAsync(User.Identity.Name, courseId);
+            if (operation.IsSuccessful)
             {
                 return Content(ClientMessage.SuccessfullyEnrolled);
             }
 
-            return Content(status.ErrorMessage);
+            return Content(operation.ErrorMessage);
         }
     }
 }

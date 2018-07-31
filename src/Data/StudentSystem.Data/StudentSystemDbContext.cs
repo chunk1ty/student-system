@@ -16,11 +16,6 @@ namespace StudentSystem.Data
 
         public virtual IDbSet<Student> Students { get; set; }
 
-        public static StudentSystemDbContext Create()
-        {
-            return new StudentSystemDbContext();
-        }
-
         public new IDbSet<TEntity> Set<TEntity>()
             where TEntity : class
         {
