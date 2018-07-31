@@ -44,6 +44,10 @@
       <Project>{D446FFE2-72EB-4317-ABCF-10586384CBE0}</Project>
       <Name>StudentSystem.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\StudentSystem.Infrastructure\StudentSystem.Infrastructure.csproj">
+      <Project>{0AAC1E91-86D3-4614-8BE6-6573ED9C2501}</Project>
+      <Name>StudentSystem.Infrastructure</Name>
+    </ProjectReference>
     <ProjectReference Include="..\StudentSystem.Data.Contracts\StudentSystem.Data.Contracts.csproj">
       <Project>{FDD593E3-AD31-4E23-96DD-431D45DBC403}</Project>
       <Name>StudentSystem.Data.Contracts</Name>

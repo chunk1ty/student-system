@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Web;
-
-
 using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 using Ninject;
 using Ninject.Web.Common;
@@ -14,6 +12,7 @@ using StudentSystem.Data.Contracts;
 using StudentSystem.Data.Repositories;
 using StudentSystem.Data.Services;
 using StudentSystem.Data.Services.Contracts;
+using StudentSystem.Infrastructure.Security;
 using StudentSystem.Services.Mapping;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(NinjectConfig), "Start")]
@@ -74,6 +73,8 @@ namespace StudentSystem.Clients.Mvc
         {
             kernel.Bind<IMappingService>().To<MappingService>();
             kernel.Bind<FormsAuthenticationWrapper>().ToSelf().InRequestScope();
+
+            kernel.Bind<ICypher>().To<RijndaelPbkdf2Cyhper>().InSingletonScope();
         }
 
         private static void RegisterDataModule(IKernel kernel)
