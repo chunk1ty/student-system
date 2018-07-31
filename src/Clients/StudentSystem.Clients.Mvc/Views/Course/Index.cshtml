@@ -1,14 +1,14 @@
 ﻿@model IEnumerable<StudentSystem.Clients.Mvc.ViewModels.Course.CourseViewModel>
 
 <h1>
-    Available Courses
+    Available courses
 </h1>
 
 <hr />
 
 @Html.ValidationSummary(string.Empty, new { @class = "text-danger" })
 
-@(Html.ActionLink<StudentController>("See all enrolled courses", c => c.Courses(), null, new { @class = "btn btn-default" }))
+@(Html.ActionLink<StudentController>("Check your courses", c => c.Courses(), null, new { @class = "btn btn-default" }))
 
 <table class="table table-striped">
     <thead>

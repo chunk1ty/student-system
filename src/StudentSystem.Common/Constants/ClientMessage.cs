@@ -1,6 +1,6 @@
 ﻿namespace StudentSystem.Common.Constants
 {
-    // These messages should be in resource file
+    // These messages should be in resource file (and messages from the html also)
     public class ClientMessage
     {
         public const string UserDoesNotExist = "User with email '{0}' doesn't exist.";

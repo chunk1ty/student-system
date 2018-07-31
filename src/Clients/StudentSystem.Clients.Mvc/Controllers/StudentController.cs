@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Web.Mvc.Expressions;
+
 using StudentSystem.Clients.Mvc.ViewModels.Student;
 using StudentSystem.Common.Constants;
 using StudentSystem.Data.Services.Contracts;
@@ -9,6 +10,7 @@ using StudentSystem.Infrastructure.Mapping;
 
 namespace StudentSystem.Clients.Mvc.Controllers
 {
+    [Authorize]
     public class StudentController : Controller
     {
         private readonly IStudentService _studentService;

@@ -78,7 +78,7 @@ namespace StudentSystem.Clients.Mvc.Controllers
             var operation = _courseService.Add(course);
             if (operation.IsSuccessful)
             {
-                return this.RedirectToAction(x => x.Index());
+                return this.RedirectToAction(x => x.Manage());
             }
 
             ModelState.AddModelError(string.Empty, operation.ErrorMessage);

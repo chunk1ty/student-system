@@ -9,7 +9,6 @@ using StudentSystem.Data.Services.Contracts;
 
 namespace StudentSystem.Clients.Mvc.Controllers
 {
-    [Authorize]
     public class AccountController : Controller
     {
         private readonly IAccountService _accountService;
@@ -24,7 +23,6 @@ namespace StudentSystem.Clients.Mvc.Controllers
         }
 
         [HttpGet]
-        [AllowAnonymous]
         public ActionResult Login()
         {
             if (User.Identity.IsAuthenticated)
@@ -36,7 +34,6 @@ namespace StudentSystem.Clients.Mvc.Controllers
         }
 
         [HttpPost]
-        [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel model)
         {
@@ -58,6 +55,7 @@ namespace StudentSystem.Clients.Mvc.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
@@ -67,14 +65,12 @@ namespace StudentSystem.Clients.Mvc.Controllers
         }
 
         [HttpGet]
-        [AllowAnonymous]
         public ActionResult Register()
         {
             return View(new RegisterViewModel());
         }
 
         [HttpPost]
-        [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
