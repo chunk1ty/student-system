@@ -6,7 +6,7 @@
 
 <hr />
 
-@Html.ValidationSummary()
+@Html.ValidationSummary(string.Empty, new { @class = "text-danger" })
 
 @(Html.ActionLink<StudentController>("See all enrolled courses", c => c.Courses(), null, new { @class = "btn btn-default" }))
 
@@ -23,7 +23,7 @@
     </thead>
     <tbody id="available-courses">
         @Html.AntiForgeryToken()
-            
+
         @if (!Model.Any())
         {
             <tr>
@@ -35,21 +35,21 @@
         else
         {
             foreach (var course in Model)
-             {
-                 <tr data-course-id="@course.Id">
-                     <td class="col-md-9 col-sm-9 col-xs-9">
-                         @course.Name
-                     </td>
+            {
+                <tr data-course-id="@course.Id">
+                    <td class="col-md-9 col-sm-9 col-xs-9">
+                        @course.Name
+                    </td>
 
-                     <td class="col-md-3 col-sm-3 col-xs-3">
-                         <span class="enroll btn btn-default">
-                             Enroll
-                         </span>
-                     </td>
-                 </tr>
-             }
+                    <td class="col-md-3 col-sm-3 col-xs-3">
+                        <span class="enroll btn btn-default">
+                            Enroll
+                        </span>
+                    </td>
+                </tr>
+            }
         }
-   
+
     </tbody>
 </table>
 

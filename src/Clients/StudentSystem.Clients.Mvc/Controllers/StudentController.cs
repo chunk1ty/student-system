@@ -26,7 +26,7 @@ namespace StudentSystem.Clients.Mvc.Controllers
             var status = await _studentService.GetStudentCourses(User.Identity.Name);
             if (!status.IsSuccessful)
             {
-                ModelState.AddModelError(string.Empty, status.ErrorMessage);
+                TempData["Error"] = status.ErrorMessage;
 
                 return this.RedirectToAction<CourseController>(x => x.Index());
             }

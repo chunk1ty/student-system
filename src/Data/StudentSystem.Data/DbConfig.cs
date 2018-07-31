@@ -1,9 +1,7 @@
 ﻿using System.Data.Entity;
-
-using StudentSystem.Data;
 using StudentSystem.Data.Migrations;
 
-namespace StudentSystem.Clients.Mvc
+namespace StudentSystem.Data
 {
     public class DbConfig
     {

@@ -27,6 +27,12 @@ namespace StudentSystem.Clients.Mvc.Controllers
         [HttpGet]
         public async Task<ActionResult> Index()
         {
+            var error = (string)TempData["Error"];
+            if (!string.IsNullOrEmpty(error))
+            {
+                ModelState.AddModelError(string.Empty, error);
+            }
+
             var status = await _courseService.GetAllAsync();
             if (!status.IsSuccessful)
             {
@@ -46,9 +52,9 @@ namespace StudentSystem.Clients.Mvc.Controllers
             var status = await _courseService.GetAllAsync();
             if (!status.IsSuccessful)
             {
-                ModelState.AddModelError(string.Empty, status.ErrorMessage);
+                TempData["Error"] = status.ErrorMessage;
 
-                return View(new List<CourseViewModel>());
+                return this.RedirectToAction(x => x.Index());
             }
 
             var coursesViewModel = _mapping.Map<IEnumerable<CourseViewModel>>(status.Result);
@@ -75,7 +81,9 @@ namespace StudentSystem.Clients.Mvc.Controllers
             var status = _courseService.Add(course);
             if (status.IsSuccessful)
             {
-                return this.RedirectToAction(x => x.Manage());
+                TempData["Error"] = status.ErrorMessage;
+
+                return this.RedirectToAction(x => x.Index());
             }
 
             ModelState.AddModelError(string.Empty, status.ErrorMessage);
@@ -94,7 +102,7 @@ namespace StudentSystem.Clients.Mvc.Controllers
                 return View(courseViewModel);
             }
 
-            ModelState.AddModelError(string.Empty, status.ErrorMessage);
+            TempData["Error"] = status.ErrorMessage;
 
             return this.RedirectToAction(x => x.Index());
         }
@@ -129,7 +137,7 @@ namespace StudentSystem.Clients.Mvc.Controllers
                 return this.RedirectToAction(x => x.Manage());
             }
 
-            ModelState.AddModelError(string.Empty, status.ErrorMessage);
+            TempData["Error"] = status.ErrorMessage;
 
             return this.RedirectToAction(x => x.Index());
         }
