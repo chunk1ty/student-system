@@ -12,8 +12,8 @@ using StudentSystem.Data.Contracts;
 using StudentSystem.Data.Repositories;
 using StudentSystem.Data.Services;
 using StudentSystem.Data.Services.Contracts;
+using StudentSystem.Infrastructure.Mapping;
 using StudentSystem.Infrastructure.Security;
-using StudentSystem.Services.Mapping;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(NinjectConfig), "Start")]
 [assembly: WebActivatorEx.ApplicationShutdownMethod(typeof(NinjectConfig), "Stop")]

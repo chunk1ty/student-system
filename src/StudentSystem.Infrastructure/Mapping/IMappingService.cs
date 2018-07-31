@@ -1,4 +1,4 @@
-﻿namespace StudentSystem.Services.Mapping
+﻿namespace StudentSystem.Infrastructure.Mapping
 {
     public interface IMappingService
     {

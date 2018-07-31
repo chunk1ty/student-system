@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using StudentSystem.Services.Mapping;
+using StudentSystem.Infrastructure.Mapping;
 
 namespace StudentSystem.Clients.Mvc.ViewModels.Course
 {

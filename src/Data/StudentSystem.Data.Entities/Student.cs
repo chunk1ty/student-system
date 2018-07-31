@@ -2,7 +2,6 @@
 
 namespace StudentSystem.Data.Entities
 {
-    //TODO immutable class
     public class Student
     {
         public Student()

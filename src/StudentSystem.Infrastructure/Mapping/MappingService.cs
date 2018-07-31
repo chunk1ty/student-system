@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 
-namespace StudentSystem.Services.Mapping
+namespace StudentSystem.Infrastructure.Mapping
 {
     public class MappingService : IMappingService
     {

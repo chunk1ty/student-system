@@ -15,13 +15,6 @@ namespace StudentSystem.Data.Repositories
             _studentSystemDbContext = studentSystemDbContext;
         }
 
-        public async Task<Student> GetStudentByIdAsync(int id)
-        {
-            return await _studentSystemDbContext.Set<Student>()
-                                                .Include(x => x.Courses)
-                                                .SingleOrDefaultAsync(x => x.Id.Equals(id));
-        }
-
         public async Task<Student> GetStudentByEmailAsync(string email)
         {
             return await _studentSystemDbContext.Set<Student>()

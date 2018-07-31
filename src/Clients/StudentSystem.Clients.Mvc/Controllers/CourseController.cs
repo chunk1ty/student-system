@@ -8,7 +8,7 @@ using StudentSystem.Data.Entities;
 using StudentSystem.Data.Services.Contracts;
 using System.Web.Mvc.Expressions;
 using StudentSystem.Common.Constants;
-using StudentSystem.Services.Mapping;
+using StudentSystem.Infrastructure.Mapping;
 
 namespace StudentSystem.Clients.Mvc.Controllers
 {

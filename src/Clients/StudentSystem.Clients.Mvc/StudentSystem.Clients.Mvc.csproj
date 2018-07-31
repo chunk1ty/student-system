@@ -259,10 +259,6 @@
       <Project>{0AAC1E91-86D3-4614-8BE6-6573ED9C2501}</Project>
       <Name>StudentSystem.Infrastructure</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\StudentSystem.Services\StudentSystem.Services.csproj">
-      <Project>{B8ACA4EA-FA44-4E13-AED3-E48536EF11AD}</Project>
-      <Name>StudentSystem.Services</Name>
-    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
