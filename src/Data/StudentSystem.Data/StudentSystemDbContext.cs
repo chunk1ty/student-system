@@ -8,7 +8,7 @@ namespace StudentSystem.Data
     public class StudentSystemDbContext : DbContext, IUnitOfWork
     {
         public StudentSystemDbContext()
-            : base("DefaultConnection")
+            : base("StudentSystemConnection")
         {
         }
 
