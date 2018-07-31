@@ -41,6 +41,10 @@
     <Reference Include="System.Data" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Migrations\201807310109586_Initial.cs" />
+    <Compile Include="Migrations\201807310109586_Initial.Designer.cs">
+      <DependentUpon>201807310109586_Initial.cs</DependentUpon>
+    </Compile>
     <Compile Include="Repositories\EfCourseRepository.cs" />
     <Compile Include="Repositories\EfStudentRepository.cs" />
     <Compile Include="Migrations\Configuration.cs" />
@@ -61,6 +65,10 @@
       <Name>StudentSystem.Data.Entities</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201807310109586_Initial.resx">
+      <DependentUpon>201807310109586_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

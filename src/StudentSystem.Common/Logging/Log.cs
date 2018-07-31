@@ -2,7 +2,7 @@
 using System.Collections.Concurrent;
 using log4net;
 
-namespace StudentSystem.Common
+namespace StudentSystem.Common.Logging
 {
     public class Log<T> where T : class
     {

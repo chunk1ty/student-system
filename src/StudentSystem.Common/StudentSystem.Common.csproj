@@ -45,7 +45,7 @@
   <ItemGroup>
     <Compile Include="Constants\ClientMessage.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
-    <Compile Include="Log.cs" />
+    <Compile Include="Logging\Log.cs" />
     <Compile Include="OperationStatus.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

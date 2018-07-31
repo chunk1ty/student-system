@@ -3,8 +3,6 @@
     // These messages should be in resource file
     public class ClientMessage
     {
-        public const string SuccessfullyRegistered = "You have been successfully registered.";
-
         public const string UserDoesNotExist = "User with email '{0}' doesn't exist.";
 
         public const string UserAlreadyExist = "User with email '{0}' already exists.";

@@ -31,22 +31,15 @@ namespace StudentSystem.Data
         {
             SaveChanges();
         }
-
-        //TODO remove onother tables
+        
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Student>().ToTable("Students")
-                                          .HasKey(x => x.Id);
-            //modelBuilder.Entity<Student>()
-            //            .Ignore(x => x.EmailConfirmed)
-            //            .Ignore(x => x.PhoneNumber)
-            //            .Ignore(x => x.PhoneNumberConfirmed)
-            //            .Ignore(x => x.TwoFactorEnabled)
-            //            .Ignore(x => x.LockoutEndDateUtc)
-            //            .Ignore(x => x.LockoutEnabled)
-            //            .Ignore(x => x.AccessFailedCount);
+            modelBuilder.Entity<Student>().ToTable("Students").HasKey(x => x.Id);
+            modelBuilder.Entity<Student>().Property(x => x.Email).HasMaxLength(100).IsRequired();
+            modelBuilder.Entity<Student>().Property(x => x.Password).HasMaxLength(100).IsRequired();
 
             modelBuilder.Entity<Course>().ToTable("Courses").HasKey(x => x.Id);
+            modelBuilder.Entity<Course>().Property(x => x.Name).HasMaxLength(50).IsRequired();
 
             modelBuilder.Entity<Student>()
                         .HasMany(s => s.Courses)

@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 
 using StudentSystem.Common;
 using StudentSystem.Common.Constants;
+using StudentSystem.Common.Logging;
 using StudentSystem.Data.Contracts;
 using StudentSystem.Data.Entities;
 using StudentSystem.Data.Services.Contracts;
