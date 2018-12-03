@@ -9,5 +9,7 @@ namespace StudentSystem.Data.Services.Contracts
         Task<OperationStatus<string>> RegisterAsync(string email, string password);
 
         Task<OperationStatus<string>> LogInAsync(string email, string password);
+
+        Task<OperationStatus<string>> LogInAsyncX(string email, string password);
     }
 }

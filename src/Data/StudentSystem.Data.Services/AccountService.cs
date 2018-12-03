@@ -56,6 +56,7 @@ namespace StudentSystem.Data.Services
         {
             try
             {
+                throw new Exception("Exception");
                 var user = await _studentRepository.GetStudentWithCoursesByEmailAsync(email);
                 if (user == null)
                 {
@@ -74,6 +75,11 @@ namespace StudentSystem.Data.Services
 
                 return new FailureStatus<string>(ClientMessage.SomethingWentWrong);
             }
+        }
+
+        public async Task<OperationStatus<string>> LogInAsyncX(string email, string password)
+        {
+            throw new Exception("Exception");
         }
     }
 }
