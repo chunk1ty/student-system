@@ -13,6 +13,7 @@ using StudentSystem.Data.Repositories;
 using StudentSystem.Data.Services;
 using StudentSystem.Data.Services.Contracts;
 using StudentSystem.Infrastructure.Mapping;
+using StudentSystem.Infrastructure.RetryPolicy;
 using StudentSystem.Infrastructure.Security;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(NinjectConfig), "Start")]
@@ -75,8 +76,10 @@ namespace StudentSystem.Clients.Mvc
         {
             kernel.Bind<IMappingService>().To<MappingService>().InSingletonScope();
             kernel.Bind<ICypher>().To<RijndaelPbkdf2Cyhper>().InSingletonScope();
+            kernel.Bind<IRetryPolicy>().To<RetryPolicyService>();
         }
 
+        // TODO DI modules ?
         private static void RegisterDataModule(IKernel kernel)
         {
             kernel.Bind<StudentSystemDbContext>().ToSelf().InRequestScope();

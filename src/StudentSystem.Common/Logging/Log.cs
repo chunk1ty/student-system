@@ -5,6 +5,7 @@ using log4net;
 
 namespace StudentSystem.Common.Logging
 {
+    // TODO is it in the right dll ?
     public class Log<T> where T : class
     {
         private static ConcurrentDictionary<Type, ILog> Loggers = new ConcurrentDictionary<Type, ILog>();

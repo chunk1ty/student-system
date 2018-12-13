@@ -36,6 +36,9 @@
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
     </Reference>
+    <Reference Include="Polly, Version=6.0.0.0, Culture=neutral, PublicKeyToken=c8a3ffc3f8f825cc, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Polly.6.1.2\lib\netstandard2.0\Polly.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -62,6 +65,8 @@
     <Compile Include="Mapping\IMap.cs" />
     <Compile Include="Mapping\IMappingService.cs" />
     <Compile Include="Mapping\MappingService.cs" />
+    <Compile Include="RetryPolicy\RetryPolicyService.cs" />
+    <Compile Include="RetryPolicy\IRetryPolicy.cs" />
     <Compile Include="Security\ICypher.cs" />
     <Compile Include="Security\RijndaelPbkdf2Cyhper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
