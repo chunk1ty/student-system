@@ -29,53 +29,52 @@ namespace StudentSystem.Data.Services
 
         public async Task<OperationStatus<string>> EnrollStudentInCourseAsync(string email, int courseId)
         {
-            try
+            if (email == null)
             {
-                var student = await _studentRepository.GetStudentWithCoursesByEmailAsync(email);
-                if (student.Courses.Any(c => c.Id == courseId))
-                {
-                    return new FailureStatus<string>(ClientMessage.AlreadyEnrolledInThisCourse);
-                }
-
-                var course = await _courseRepository.GetByIdAsync(courseId);
-                if (course == null)
-                {
-                    return new FailureStatus<string>(ClientMessage.CourseDoesNotExist);
-                }
-
-                student.Courses.Add(course);
-                _unitOfWork.Commit();
-
-                return new SuccessStatus<string>(string.Empty);
+                throw new ArgumentNullException(nameof(email));
             }
-            catch (Exception ex)
+
+            if (courseId <= 0 )
             {
-                Log<StudentService>.Error(ex.Message, ex);
-
-                return new FailureStatus<string>(ClientMessage.SomethingWentWrong);
+                throw new ArgumentNullException("id cannot be less or equal to 0");
             }
+
+            var student = await _studentRepository.GetStudentWithCoursesByEmailAsync(email);
+            if (student.Courses.Any(c => c.Id == courseId))
+            {
+                return new FailureStatus<string>(ClientMessage.AlreadyEnrolledInThisCourse);
+            }
+
+            var course = await _courseRepository.GetByIdAsync(courseId);
+            if (course == null)
+            {
+                //TODO exception or FailureStatus ?
+                return new FailureStatus<string>(ClientMessage.CourseDoesNotExist);
+            }
+
+            student.Courses.Add(course);
+            _unitOfWork.Commit();
+
+            return new SuccessStatus<string>(string.Empty);
         }
 
         public async Task<OperationStatus<StudentCourses>> GetStudentCourses(string email)
         {
-            try
+            if (email == null)
             {
-                var student = await _studentRepository.GetStudentWithCoursesByEmailAsync(email);
-
-                var courses = await _courseRepository.GetAllAsync();
-
-                var enrolledCoursesIds = student.Courses.Select(x => x.Id)
-                                                        .ToList();
-                var notEnrolledCourses = courses.Where(x => !enrolledCoursesIds.Contains(x.Id));
-
-                return new SuccessStatus<StudentCourses>(new StudentCourses(student.Courses, notEnrolledCourses));
+                throw new ArgumentNullException(nameof(email));
             }
-            catch (Exception ex)
-            {
-                Log<CourseService>.Error(ex.Message, ex);
 
-                return new FailureStatus<StudentCourses>(ClientMessage.SomethingWentWrong);
-            }
+            var student = await _studentRepository.GetStudentWithCoursesByEmailAsync(email);
+
+            var courses = await _courseRepository.GetAllAsync();
+
+            var enrolledCoursesIds = student.Courses.Select(x => x.Id)
+                                                    .ToList();
+            var notEnrolledCourses = courses.Where(x => !enrolledCoursesIds.Contains(x.Id));
+
+            //TODO StudentCourses is it in the correct assembly ?
+            return new SuccessStatus<StudentCourses>(new StudentCourses(student.Courses, notEnrolledCourses));
         }
     }
 }

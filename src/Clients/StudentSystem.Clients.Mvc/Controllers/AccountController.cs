@@ -42,7 +42,7 @@ namespace StudentSystem.Clients.Mvc.Controllers
                 return View(model);
             }
 
-            var operation =  await _accountService.LogInAsyncX(model.Email, model.Password);
+            var operation =  await _accountService.LogInAsync(model.Email, model.Password);
             if (operation.IsSuccessful)
             {
                 _formsAuthenticationWrapper.SetAuthCookie(model.Email, model.RememberMe);
