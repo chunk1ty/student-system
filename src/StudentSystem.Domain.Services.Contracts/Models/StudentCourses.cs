@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using StudentSystem.Domain;
 
-namespace StudentSystem.Data.Services.Contracts.Models
+namespace StudentSystem.Domain.Services.Contracts.Models
 {
     public class StudentCourses
     {

@@ -1,8 +1,8 @@
 ﻿using System.Data.Entity;
 
-using StudentSystem.Data.Migrations;
+using StudentSystem.Persistence.Migrations;
 
-namespace StudentSystem.Data
+namespace StudentSystem.Persistence
 {
     public class DbConfig
     {

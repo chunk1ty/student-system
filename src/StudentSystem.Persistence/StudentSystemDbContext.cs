@@ -1,9 +1,9 @@
 ﻿using System.Data.Entity;
 
-using StudentSystem.Data.Contracts;
+using StudentSystem.Persistence.Contracts;
 using StudentSystem.Domain;
 
-namespace StudentSystem.Data
+namespace StudentSystem.Persistence
 {
     public class StudentSystemDbContext : DbContext, IUnitOfWork
     {

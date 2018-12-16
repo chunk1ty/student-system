@@ -81,26 +81,42 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\src\Clients\StudentSystem.Clients.Mvc\StudentSystem.Clients.Mvc.csproj">
-      <Project>{109E548F-EF39-4D6F-B493-59E6B6573BE5}</Project>
-      <Name>StudentSystem.Clients.Mvc</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\src\Data\StudentSystem.Data.Services.Contracts\StudentSystem.Data.Services.Contracts.csproj">
-      <Project>{32184320-2DD5-468A-94B3-819972500D68}</Project>
-      <Name>StudentSystem.Data.Services.Contracts</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\src\Data\StudentSystem.Data.Services\StudentSystem.Data.Services.csproj">
-      <Project>{3126E786-F4CA-47F8-AEA3-EE359FE63FEA}</Project>
-      <Name>StudentSystem.Data.Services</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\src\StudentSystem.Common\StudentSystem.Common.csproj">
-      <Project>{D446FFE2-72EB-4317-ABCF-10586384CBE0}</Project>
-      <Name>StudentSystem.Common</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\src\Clients\StudentSystem.Clients.Mvc\StudentSystem.Clients.Mvc.csproj">
+      <Project>{109e548f-ef39-4d6f-b493-59e6b6573be5}</Project>
+      <Name>StudentSystem.Clients.Mvc</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\src\StudentSystem.Common\StudentSystem.Common.csproj">
+      <Project>{d446ffe2-72eb-4317-abcf-10586384cbe0}</Project>
+      <Name>StudentSystem.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\src\StudentSystem.Domain.Services.Contracts\StudentSystem.Domain.Services.Contracts.csproj">
+      <Project>{32184320-2dd5-468a-94b3-819972500d68}</Project>
+      <Name>StudentSystem.Domain.Services.Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\src\StudentSystem.Domain.Services\StudentSystem.Domain.Services.csproj">
+      <Project>{3126e786-f4ca-47f8-aea3-ee359fe63fea}</Project>
+      <Name>StudentSystem.Domain.Services</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\src\StudentSystem.Domain\StudentSystem.Domain.csproj">
+      <Project>{3d0e29a1-2862-41bb-9e03-dfa227b2c024}</Project>
+      <Name>StudentSystem.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\src\StudentSystem.Infrastructure\StudentSystem.Infrastructure.csproj">
+      <Project>{0aac1e91-86d3-4614-8be6-6573ed9c2501}</Project>
+      <Name>StudentSystem.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\src\StudentSystem.Persistence.Contracts\StudentSystem.Persistence.Contracts.csproj">
+      <Project>{fdd593e3-ad31-4e23-96dd-431d45dbc403}</Project>
+      <Name>StudentSystem.Persistence.Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\src\StudentSystem.Persistence\StudentSystem.Persistence.csproj">
+      <Project>{6a0e0c45-5deb-4d8d-a9f8-83fd7e25ff8d}</Project>
+      <Name>StudentSystem.Persistence</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

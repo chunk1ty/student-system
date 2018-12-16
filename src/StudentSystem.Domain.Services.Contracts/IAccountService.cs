@@ -2,7 +2,7 @@
 
 using StudentSystem.Common;
 
-namespace StudentSystem.Data.Services.Contracts
+namespace StudentSystem.Domain.Services.Contracts
 {
     public interface IAccountService
     {

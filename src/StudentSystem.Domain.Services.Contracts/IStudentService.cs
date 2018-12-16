@@ -1,9 +1,9 @@
 ﻿using System.Threading.Tasks;
 
 using StudentSystem.Common;
-using StudentSystem.Data.Services.Contracts.Models;
+using StudentSystem.Domain.Services.Contracts.Models;
 
-namespace StudentSystem.Data.Services.Contracts
+namespace StudentSystem.Domain.Services.Contracts
 {
     public interface IStudentService
     {

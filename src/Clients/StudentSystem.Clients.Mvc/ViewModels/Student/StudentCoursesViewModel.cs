@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 
 using StudentSystem.Clients.Mvc.ViewModels.Course;
-using StudentSystem.Data.Services.Contracts.Models;
+using StudentSystem.Domain.Services.Contracts.Models;
 using StudentSystem.Infrastructure.Mapping;
 
 namespace StudentSystem.Clients.Mvc.ViewModels.Student

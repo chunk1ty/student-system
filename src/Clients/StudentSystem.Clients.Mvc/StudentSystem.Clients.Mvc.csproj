@@ -231,25 +231,25 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Data\StudentSystem.Data.Contracts\StudentSystem.Data.Contracts.csproj">
-      <Project>{FDD593E3-AD31-4E23-96DD-431D45DBC403}</Project>
-      <Name>StudentSystem.Data.Contracts</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Data\StudentSystem.Data.Services.Contracts\StudentSystem.Data.Services.Contracts.csproj">
-      <Project>{32184320-2DD5-468A-94B3-819972500D68}</Project>
-      <Name>StudentSystem.Data.Services.Contracts</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Data\StudentSystem.Data.Services\StudentSystem.Data.Services.csproj">
-      <Project>{3126E786-F4CA-47F8-AEA3-EE359FE63FEA}</Project>
-      <Name>StudentSystem.Data.Services</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Data\StudentSystem.Data\StudentSystem.Data.csproj">
-      <Project>{6A0E0C45-5DEB-4D8D-A9F8-83FD7E25FF8D}</Project>
-      <Name>StudentSystem.Data</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\StudentSystem.Common\StudentSystem.Common.csproj">
-      <Project>{D446FFE2-72EB-4317-ABCF-10586384CBE0}</Project>
+      <Project>{d446ffe2-72eb-4317-abcf-10586384cbe0}</Project>
       <Name>StudentSystem.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\StudentSystem.Domain.Services.Contracts\StudentSystem.Domain.Services.Contracts.csproj">
+      <Project>{32184320-2dd5-468a-94b3-819972500d68}</Project>
+      <Name>StudentSystem.Domain.Services.Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\StudentSystem.Domain.Services\StudentSystem.Domain.Services.csproj">
+      <Project>{3126e786-f4ca-47f8-aea3-ee359fe63fea}</Project>
+      <Name>StudentSystem.Domain.Services</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\StudentSystem.Persistence.Contracts\StudentSystem.Persistence.Contracts.csproj">
+      <Project>{fdd593e3-ad31-4e23-96dd-431d45dbc403}</Project>
+      <Name>StudentSystem.Persistence.Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\StudentSystem.Persistence\StudentSystem.Persistence.csproj">
+      <Project>{6a0e0c45-5deb-4d8d-a9f8-83fd7e25ff8d}</Project>
+      <Name>StudentSystem.Persistence</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\StudentSystem.Domain\StudentSystem.Domain.csproj">
       <Project>{3d0e29a1-2862-41bb-9e03-dfa227b2c024}</Project>

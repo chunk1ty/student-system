@@ -41,11 +41,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\StudentSystem.Common\StudentSystem.Common.csproj">
-      <Project>{D446FFE2-72EB-4317-ABCF-10586384CBE0}</Project>
+    <ProjectReference Include="..\StudentSystem.Common\StudentSystem.Common.csproj">
+      <Project>{d446ffe2-72eb-4317-abcf-10586384cbe0}</Project>
       <Name>StudentSystem.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\StudentSystem.Domain\StudentSystem.Domain.csproj">
+    <ProjectReference Include="..\StudentSystem.Domain\StudentSystem.Domain.csproj">
       <Project>{3d0e29a1-2862-41bb-9e03-dfa227b2c024}</Project>
       <Name>StudentSystem.Domain</Name>
     </ProjectReference>

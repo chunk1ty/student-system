@@ -2,7 +2,7 @@
 
 using StudentSystem.Domain;
 
-namespace StudentSystem.Data.Contracts
+namespace StudentSystem.Persistence.Contracts
 {
     public interface IStudentRepository
     {

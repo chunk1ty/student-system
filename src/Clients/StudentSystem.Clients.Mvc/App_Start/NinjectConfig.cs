@@ -7,11 +7,11 @@ using Ninject.Web.Common.WebHost;
 
 using StudentSystem.Clients.Mvc;
 using StudentSystem.Clients.Mvc.Infrastructure;
-using StudentSystem.Data;
-using StudentSystem.Data.Contracts;
-using StudentSystem.Data.Repositories;
-using StudentSystem.Data.Services;
-using StudentSystem.Data.Services.Contracts;
+using StudentSystem.Persistence;
+using StudentSystem.Persistence.Contracts;
+using StudentSystem.Persistence.Repositories;
+using StudentSystem.Domain.Services;
+using StudentSystem.Domain.Services.Contracts;
 using StudentSystem.Infrastructure.Mapping;
 using StudentSystem.Infrastructure.RetryPolicy;
 using StudentSystem.Infrastructure.Security;

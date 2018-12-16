@@ -1,5 +1,6 @@
 ﻿using System.Data.Entity;
 using NUnit.Framework;
+using StudentSystem.Persistence;
 
 namespace StudentSystem.Data.Services.Tests
 {

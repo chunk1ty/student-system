@@ -1,10 +1,10 @@
 ﻿using System.Data.Entity;
 using System.Threading.Tasks;
 
-using StudentSystem.Data.Contracts;
+using StudentSystem.Persistence.Contracts;
 using StudentSystem.Domain;
 
-namespace StudentSystem.Data.Repositories
+namespace StudentSystem.Persistence.Repositories
 {
     public class EfStudentRepository : IStudentRepository
     {

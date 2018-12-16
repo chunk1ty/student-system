@@ -72,13 +72,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\StudentSystem.Common\StudentSystem.Common.csproj">
-      <Project>{D446FFE2-72EB-4317-ABCF-10586384CBE0}</Project>
-      <Name>StudentSystem.Common</Name>
-    </ProjectReference>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <ProjectReference Include="..\StudentSystem.Common\StudentSystem.Common.csproj">
+      <Project>{d446ffe2-72eb-4317-abcf-10586384cbe0}</Project>
+      <Name>StudentSystem.Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

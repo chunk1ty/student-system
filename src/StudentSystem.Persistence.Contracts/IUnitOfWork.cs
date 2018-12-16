@@ -1,4 +1,4 @@
-﻿namespace StudentSystem.Data.Contracts
+﻿namespace StudentSystem.Persistence.Contracts
 {
     public interface IUnitOfWork
     {

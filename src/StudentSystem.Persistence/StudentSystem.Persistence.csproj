@@ -31,12 +31,13 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>..\..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <HintPath>..\..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
   </ItemGroup>
@@ -57,19 +58,19 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\StudentSystem.Domain\StudentSystem.Domain.csproj">
-      <Project>{3d0e29a1-2862-41bb-9e03-dfa227b2c024}</Project>
-      <Name>StudentSystem.Domain</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\StudentSystem.Data.Contracts\StudentSystem.Data.Contracts.csproj">
-      <Project>{FDD593E3-AD31-4E23-96DD-431D45DBC403}</Project>
-      <Name>StudentSystem.Data.Contracts</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Migrations\201807310109586_Initial.resx">
       <DependentUpon>201807310109586_Initial.cs</DependentUpon>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\StudentSystem.Domain\StudentSystem.Domain.csproj">
+      <Project>{3D0E29A1-2862-41BB-9E03-DFA227B2C024}</Project>
+      <Name>StudentSystem.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\StudentSystem.Persistence.Contracts\StudentSystem.Persistence.Contracts.csproj">
+      <Project>{FDD593E3-AD31-4E23-96DD-431D45DBC403}</Project>
+      <Name>StudentSystem.Persistence.Contracts</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

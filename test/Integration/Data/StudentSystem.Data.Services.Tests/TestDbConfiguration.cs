@@ -1,4 +1,5 @@
-﻿using System.Data.Entity.Migrations;
+﻿using StudentSystem.Persistence;
+using System.Data.Entity.Migrations;
 
 namespace StudentSystem.Data.Services.Tests
 {

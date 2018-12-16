@@ -7,7 +7,8 @@ using NUnit.Framework;
 
 using StudentSystem.Clients.Mvc;
 using StudentSystem.Domain;
-using StudentSystem.Data.Services.Contracts;
+using StudentSystem.Domain.Services.Contracts;
+using StudentSystem.Persistence;
 
 namespace StudentSystem.Data.Services.Tests.Services
 {

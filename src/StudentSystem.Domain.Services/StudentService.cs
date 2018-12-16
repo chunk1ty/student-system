@@ -4,12 +4,11 @@ using System.Threading.Tasks;
 
 using StudentSystem.Common;
 using StudentSystem.Common.Constants;
-using StudentSystem.Common.Logging;
-using StudentSystem.Data.Contracts;
-using StudentSystem.Data.Services.Contracts;
-using StudentSystem.Data.Services.Contracts.Models;
+using StudentSystem.Persistence.Contracts;
+using StudentSystem.Domain.Services.Contracts;
+using StudentSystem.Domain.Services.Contracts.Models;
 
-namespace StudentSystem.Data.Services
+namespace StudentSystem.Domain.Services
 {
     public class StudentService : IStudentService
     {

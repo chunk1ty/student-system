@@ -9,7 +9,7 @@ using StudentSystem.Clients.Mvc.Controllers;
 using StudentSystem.Clients.Mvc.Infrastructure;
 using StudentSystem.Clients.Mvc.ViewModels.Account;
 using StudentSystem.Common;
-using StudentSystem.Data.Services.Contracts;
+using StudentSystem.Domain.Services.Contracts;
 
 namespace StudentSystem.Clients.Mvc.Tests.Controllers
 {

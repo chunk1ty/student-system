@@ -4,11 +4,10 @@ using System.Threading.Tasks;
 
 using StudentSystem.Common;
 using StudentSystem.Common.Constants;
-using StudentSystem.Data.Contracts;
-using StudentSystem.Domain;
-using StudentSystem.Data.Services.Contracts;
+using StudentSystem.Persistence.Contracts;
+using StudentSystem.Domain.Services.Contracts;
 
-namespace StudentSystem.Data.Services
+namespace StudentSystem.Domain.Services
 {
     public class CourseService : ICourseService
     {

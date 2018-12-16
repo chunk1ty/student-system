@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using StudentSystem.Common;
 using StudentSystem.Domain;
 
-namespace StudentSystem.Data.Services.Contracts
+namespace StudentSystem.Domain.Services.Contracts
 {
     public interface ICourseService
     {

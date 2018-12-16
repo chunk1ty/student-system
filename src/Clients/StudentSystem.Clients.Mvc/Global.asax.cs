@@ -2,7 +2,7 @@
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
-using StudentSystem.Data;
+using StudentSystem.Persistence;
 using StudentSystem.Infrastructure.Mapping;
 
 namespace StudentSystem.Clients.Mvc

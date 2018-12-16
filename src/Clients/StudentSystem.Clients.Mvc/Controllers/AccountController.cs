@@ -5,7 +5,7 @@ using System.Web.Mvc.Expressions;
 
 using StudentSystem.Clients.Mvc.Infrastructure;
 using StudentSystem.Clients.Mvc.ViewModels.Account;
-using StudentSystem.Data.Services.Contracts;
+using StudentSystem.Domain.Services.Contracts;
 
 namespace StudentSystem.Clients.Mvc.Controllers
 {
