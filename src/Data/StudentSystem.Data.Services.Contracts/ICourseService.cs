@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 
 using StudentSystem.Common;
-using StudentSystem.Data.Entities;
+using StudentSystem.Domain;
 
 namespace StudentSystem.Data.Services.Contracts
 {

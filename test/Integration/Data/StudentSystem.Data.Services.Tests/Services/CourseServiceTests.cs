@@ -6,7 +6,7 @@ using Ninject;
 using NUnit.Framework;
 
 using StudentSystem.Clients.Mvc;
-using StudentSystem.Data.Entities;
+using StudentSystem.Domain;
 using StudentSystem.Data.Services.Contracts;
 
 namespace StudentSystem.Data.Services.Tests.Services

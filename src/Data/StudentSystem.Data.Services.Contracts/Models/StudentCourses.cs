@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using StudentSystem.Data.Entities;
+using StudentSystem.Domain;
 
 namespace StudentSystem.Data.Services.Contracts.Models
 {

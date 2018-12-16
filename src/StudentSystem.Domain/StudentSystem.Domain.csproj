@@ -7,8 +7,8 @@
     <ProjectGuid>{3D0E29A1-2862-41BB-9E03-DFA227B2C024}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>StudentSystem.Data.Entities</RootNamespace>
-    <AssemblyName>StudentSystem.Data.Entities</AssemblyName>
+    <RootNamespace>StudentSystem.Domain</RootNamespace>
+    <AssemblyName>StudentSystem.Domain</AssemblyName>
     <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

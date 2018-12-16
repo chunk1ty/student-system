@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
-using StudentSystem.Data.Entities;
+using StudentSystem.Domain;
 
 namespace StudentSystem.Data.Contracts
 {

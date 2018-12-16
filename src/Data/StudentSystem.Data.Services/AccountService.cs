@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using StudentSystem.Common;
 using StudentSystem.Common.Constants;
 using StudentSystem.Data.Contracts;
-using StudentSystem.Data.Entities;
+using StudentSystem.Domain;
 using StudentSystem.Data.Services.Contracts;
 using StudentSystem.Infrastructure.RetryPolicy;
 using StudentSystem.Infrastructure.Security;

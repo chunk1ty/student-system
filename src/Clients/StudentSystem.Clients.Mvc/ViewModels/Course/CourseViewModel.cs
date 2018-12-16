@@ -4,7 +4,7 @@ using StudentSystem.Infrastructure.Mapping;
 
 namespace StudentSystem.Clients.Mvc.ViewModels.Course
 {
-    public class CourseViewModel : IMap<Data.Entities.Course>
+    public class CourseViewModel : IMap<StudentSystem.Domain.Course>
     {
         public int Id { get; set; }
 

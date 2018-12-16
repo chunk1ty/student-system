@@ -1,7 +1,7 @@
 ﻿using System.Data.Entity;
 
 using StudentSystem.Data.Contracts;
-using StudentSystem.Data.Entities;
+using StudentSystem.Domain;
 
 namespace StudentSystem.Data
 {

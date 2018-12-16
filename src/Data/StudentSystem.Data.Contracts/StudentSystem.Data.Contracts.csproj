@@ -40,9 +40,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\StudentSystem.Data.Entities\StudentSystem.Data.Entities.csproj">
-      <Project>{3D0E29A1-2862-41BB-9E03-DFA227B2C024}</Project>
-      <Name>StudentSystem.Data.Entities</Name>
+    <ProjectReference Include="..\..\StudentSystem.Domain\StudentSystem.Domain.csproj">
+      <Project>{3d0e29a1-2862-41bb-9e03-dfa227b2c024}</Project>
+      <Name>StudentSystem.Domain</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

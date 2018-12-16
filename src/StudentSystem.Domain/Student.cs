@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace StudentSystem.Data.Entities
+namespace StudentSystem.Domain
 {
     public class Student
     {
