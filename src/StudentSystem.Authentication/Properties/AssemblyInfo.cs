@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("StudentSystem.Persistence")]
+[assembly: AssemblyTitle("StudentSystem.Authentication")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("StudentSystem.Persistence")]
+[assembly: AssemblyProduct("StudentSystem.Authentication")]
 [assembly: AssemblyCopyright("Copyright ©  2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("6a0e0c45-5deb-4d8d-a9f8-83fd7e25ff8d")]
+[assembly: Guid("4490c7c5-94f0-4506-8746-5af83fe359b8")]
 
 // Version information for an assembly consists of the following four values:
 //
