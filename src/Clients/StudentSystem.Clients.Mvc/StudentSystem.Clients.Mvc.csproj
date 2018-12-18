@@ -231,6 +231,10 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\StudentSystem.Authentication\StudentSystem.Authentication.csproj">
+      <Project>{4490C7C5-94F0-4506-8746-5AF83FE359B8}</Project>
+      <Name>StudentSystem.Authentication</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\StudentSystem.Common\StudentSystem.Common.csproj">
       <Project>{d446ffe2-72eb-4317-abcf-10586384cbe0}</Project>
       <Name>StudentSystem.Common</Name>

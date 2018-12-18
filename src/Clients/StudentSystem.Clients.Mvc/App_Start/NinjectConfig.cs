@@ -4,7 +4,7 @@ using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 using Ninject;
 using Ninject.Web.Common;
 using Ninject.Web.Common.WebHost;
-
+using StudentSystem.Authentication;
 using StudentSystem.Clients.Mvc;
 using StudentSystem.Clients.Mvc.Infrastructure;
 using StudentSystem.Persistence;
@@ -58,6 +58,7 @@ namespace StudentSystem.Clients.Mvc
                 RegisterMvcModule(kernel);
                 RegisterDataModule(kernel);
                 RegisterInfrastructureModule(kernel);
+                RegisterAuthenticationModule(kernel);
                 return kernel;
             }
             catch
@@ -94,6 +95,13 @@ namespace StudentSystem.Clients.Mvc
             kernel.Bind<ICourseService>().To<CourseService>().InRequestScope();
             kernel.Bind<IStudentService>().To<StudentService>().InRequestScope();
             kernel.Bind<IAccountService>().To<AccountService>().InRequestScope();
+        }
+
+        private static void RegisterAuthenticationModule(IKernel kernel)
+        {
+            kernel.Bind<StudentSystemAuthDbContext>().ToSelf().InRequestScope();
+
+            kernel.Bind<IAuthenticationService>().To<AuthenticationService>().InRequestScope();
         }
     }
 }

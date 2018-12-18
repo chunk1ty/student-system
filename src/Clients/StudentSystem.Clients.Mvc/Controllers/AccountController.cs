@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Web.Mvc.Expressions;
-
+using StudentSystem.Authentication;
 using StudentSystem.Clients.Mvc.Infrastructure;
 using StudentSystem.Clients.Mvc.ViewModels.Account;
 using StudentSystem.Domain.Services.Contracts;
@@ -11,11 +11,11 @@ namespace StudentSystem.Clients.Mvc.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly IAccountService _accountService;
+        private readonly IAuthenticationService _accountService;
         private readonly FormsAuthenticationWrapper _formsAuthenticationWrapper;
 
         public AccountController(
-            IAccountService accountService, 
+            IAuthenticationService accountService, 
             FormsAuthenticationWrapper formsAuthenticationWrapper)
         {
             _accountService = accountService ?? throw new ArgumentNullException(nameof(accountService));

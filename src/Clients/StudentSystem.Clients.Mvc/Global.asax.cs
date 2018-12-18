@@ -2,7 +2,6 @@
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
-using StudentSystem.Persistence;
 using StudentSystem.Infrastructure.Mapping;
 
 namespace StudentSystem.Clients.Mvc
@@ -13,7 +12,8 @@ namespace StudentSystem.Clients.Mvc
         {
             ViewEngineConfig.RegisterViewEngine();
             AutoMapperConfig.RegisterAutomapper();
-            DbConfig.RegisterDb();
+            StudentSystem.Persistence.DbConfig.RegisterDb();
+            StudentSystem.Authentication.DbConfig.RegisterDb();
             log4net.Config.XmlConfigurator.Configure();
 
             AreaRegistration.RegisterAllAreas();
