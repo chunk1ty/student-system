@@ -7,8 +7,8 @@
     <ProjectGuid>{3126E786-F4CA-47F8-AEA3-EE359FE63FEA}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>StudentSystem.Data.Services</RootNamespace>
-    <AssemblyName>StudentSystem.Data.Services</AssemblyName>
+    <RootNamespace>StudentSystem.Domain.Services</RootNamespace>
+    <AssemblyName>StudentSystem.Domain.Services</AssemblyName>
     <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

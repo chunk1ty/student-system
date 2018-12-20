@@ -7,8 +7,8 @@
     <ProjectGuid>{6A0E0C45-5DEB-4D8D-A9F8-83FD7E25FF8D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>StudentSystem.Data</RootNamespace>
-    <AssemblyName>StudentSystem.Data</AssemblyName>
+    <RootNamespace>StudentSystem.Persistence</RootNamespace>
+    <AssemblyName>StudentSystem.Persistence</AssemblyName>
     <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
