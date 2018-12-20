@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 using StudentSystem.Common;
 using StudentSystem.Common.Constants;
-using StudentSystem.Common.Exception;
+using StudentSystem.Common.Exceptions;
 using StudentSystem.Persistence.Contracts;
 using StudentSystem.Domain.Services.Contracts;
 using StudentSystem.Domain.Services.Contracts.Models;

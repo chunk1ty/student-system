@@ -38,6 +38,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants\ClientMessage.cs" />
+    <Compile Include="Exceptions\DomainException.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Logging\Log.cs" />
     <Compile Include="OperationStatus.cs" />

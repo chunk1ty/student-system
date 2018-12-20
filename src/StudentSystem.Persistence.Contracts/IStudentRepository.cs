@@ -10,6 +10,6 @@ namespace StudentSystem.Persistence.Contracts
 
         void Add(Student entity);
 
-        void UpdateCourse(Student student, Course course);
+        void EnrollInCourse(Student student, Course course);
     }
 }

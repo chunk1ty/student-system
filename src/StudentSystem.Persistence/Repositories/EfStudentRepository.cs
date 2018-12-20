@@ -46,7 +46,7 @@ namespace StudentSystem.Persistence.Repositories
             //}
         }
 
-        public void EnrollToCourse(Student student, Course course)
+        public void EnrollInCourse(Student student, Course course)
         {
             var studentEntity = _mapping.Map<StudentEntity>(student);
             _studentSystemDbContext.Students.Attach(studentEntity);

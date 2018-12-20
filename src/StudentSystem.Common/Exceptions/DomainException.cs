@@ -1,6 +1,8 @@
-﻿namespace StudentSystem.Common.Exception
+﻿using System;
+
+namespace StudentSystem.Common.Exceptions
 {
-    public class DomainException : System.Exception
+    public class DomainException : Exception
     {
         public DomainException()
         {
@@ -11,7 +13,7 @@
         {
         }
 
-        public DomainException(string message, System.Exception inner)
+        public DomainException(string message, Exception inner)
             : base(message, inner)
         {
         }
