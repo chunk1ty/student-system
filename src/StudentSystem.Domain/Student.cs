@@ -13,7 +13,9 @@ namespace StudentSystem.Domain
 
         public string Email { get; set; }
 
-        public string Password { get; set; }
+        public string FirstName { get; set; }
+
+        public string LastName { get; set; }
 
         public virtual ICollection<Course> Courses { get; set; }
     }

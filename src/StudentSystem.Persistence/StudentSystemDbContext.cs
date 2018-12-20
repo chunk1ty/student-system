@@ -1,7 +1,7 @@
 ﻿using System.Data.Entity;
 
 using StudentSystem.Persistence.Contracts;
-using StudentSystem.Domain;
+using StudentSystem.Persistence.Entities;
 
 namespace StudentSystem.Persistence
 {
@@ -12,9 +12,9 @@ namespace StudentSystem.Persistence
         {
         }
 
-        public virtual IDbSet<Course> Courses { get; set; }
+        public virtual IDbSet<CourseEntity> Courses { get; set; }
 
-        public virtual IDbSet<Student> Students { get; set; }
+        public virtual IDbSet<StudentEntity> Students { get; set; }
 
         public new IDbSet<TEntity> Set<TEntity>()
             where TEntity : class
@@ -29,14 +29,14 @@ namespace StudentSystem.Persistence
         
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Student>().ToTable("Students").HasKey(x => x.Id);
-            modelBuilder.Entity<Student>().Property(x => x.Email).HasMaxLength(100).IsRequired();
-            modelBuilder.Entity<Student>().Property(x => x.Password).HasMaxLength(100).IsRequired();
+            modelBuilder.Entity<StudentEntity>().ToTable("Students").HasKey(x => x.Id);
+            modelBuilder.Entity<StudentEntity>().Property(x => x.Email).HasMaxLength(100).IsRequired();
+            //modelBuilder.Entity<Student>().Property(x => x.Password).HasMaxLength(100).IsRequired();
 
-            modelBuilder.Entity<Course>().ToTable("Courses").HasKey(x => x.Id);
-            modelBuilder.Entity<Course>().Property(x => x.Name).HasMaxLength(50).IsRequired();
+            modelBuilder.Entity<CourseEntity>().ToTable("Courses").HasKey(x => x.Id);
+            modelBuilder.Entity<CourseEntity>().Property(x => x.Name).HasMaxLength(50).IsRequired();
 
-            modelBuilder.Entity<Student>()
+            modelBuilder.Entity<StudentEntity>()
                         .HasMany(s => s.Courses)
                         .WithMany(c => c.Students)
                         .Map(cs =>

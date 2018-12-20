@@ -1,7 +1,16 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using System.Web;
+using MediatR;
 using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 using Ninject;
+using Ninject.Components;
+using Ninject.Infrastructure;
+using Ninject.Modules;
+using Ninject.Planning.Bindings;
+using Ninject.Planning.Bindings.Resolvers;
 using Ninject.Web.Common;
 using Ninject.Web.Common.WebHost;
 using StudentSystem.Authentication;
@@ -59,6 +68,7 @@ namespace StudentSystem.Clients.Mvc
                 RegisterDataModule(kernel);
                 RegisterInfrastructureModule(kernel);
                 RegisterAuthenticationModule(kernel);
+                RegisterMediatorModule(kernel);
                 return kernel;
             }
             catch
@@ -94,7 +104,7 @@ namespace StudentSystem.Clients.Mvc
 
             kernel.Bind<ICourseService>().To<CourseService>().InRequestScope();
             kernel.Bind<IStudentService>().To<StudentService>().InRequestScope();
-            kernel.Bind<IAccountService>().To<AccountService>().InRequestScope();
+            //kernel.Bind<IAccountService>().To<AccountService>().InRequestScope();
         }
 
         private static void RegisterAuthenticationModule(IKernel kernel)
@@ -102,6 +112,74 @@ namespace StudentSystem.Clients.Mvc
             kernel.Bind<StudentSystemAuthDbContext>().ToSelf().InRequestScope();
 
             kernel.Bind<IAuthenticationService>().To<AuthenticationService>().InRequestScope();
+        }
+
+        private static void RegisterMediatorModule(IKernel kernel)
+        {
+            kernel.BindMediatR();
+
+            // That's it! Make sure to bind the handlers as needed.
+          
+
+            kernel.Bind<INotificationHandler<StudentCreated>>().To<StudentCreatedHandler>();
+        }
+    }
+
+    // TODO copy/paste or nuget ?
+    public class ContravariantBindingResolver : NinjectComponent, IBindingResolver
+    {
+        /// <summary>
+        /// Returns any bindings from the specified collection that match the specified service.
+        /// </summary>
+        public IEnumerable<IBinding> Resolve(Multimap<Type, IBinding> bindings, Type service)
+        {
+            if (service.IsGenericType)
+            {
+                var genericType = service.GetGenericTypeDefinition();
+                var genericArguments = genericType.GetGenericArguments();
+                var isContravariant = genericArguments.Length == 1
+                                      && genericArguments
+                                          .Single()
+                                          .GenericParameterAttributes.HasFlag(GenericParameterAttributes.Contravariant);
+                if (isContravariant)
+                {
+                    var argument = service.GetGenericArguments().Single();
+                    var matches = bindings.Where(kvp => kvp.Key.IsGenericType
+                                                        && kvp.Key.GetGenericTypeDefinition() == genericType
+                                                        && kvp.Key.GetGenericArguments().Single() != argument
+                                                        && kvp.Key.GetGenericArguments().Single().IsAssignableFrom(argument))
+                        .SelectMany(kvp => kvp.Value);
+                    return matches;
+                }
+            }
+
+            return Enumerable.Empty<IBinding>();
+        }
+    }
+
+    public class MediatRModule : NinjectModule
+    {
+        public override void Load()
+        {
+            Kernel?.Components.Add<IBindingResolver, ContravariantBindingResolver>();
+
+            Kernel?.Bind<IMediator>().To<Mediator>();
+            Kernel?.Bind<ServiceFactory>().ToMethod(ctx => t => ctx.Kernel.TryGet(t));
+        }
+    }
+
+    public static class NinjectKernelExtensions
+    {
+        /// <summary>
+        /// Loads the MediaR Ninject Module in the given kernel.
+        /// <see cref="MediatRModule"/>
+        /// </summary>
+        /// <param name="kernel"></param>
+        /// <returns></returns>
+        public static IKernel BindMediatR(this IKernel kernel)
+        {
+            kernel.Load<MediatRModule>();
+            return kernel;
         }
     }
 }

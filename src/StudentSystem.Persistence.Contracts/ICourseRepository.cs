@@ -15,6 +15,6 @@ namespace StudentSystem.Persistence.Contracts
 
         void Update(Course entity);
 
-        void Delete(Course entity);
+        void Delete(int id);
     }
 }

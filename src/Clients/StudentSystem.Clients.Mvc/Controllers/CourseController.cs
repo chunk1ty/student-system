@@ -121,9 +121,9 @@ namespace StudentSystem.Clients.Mvc.Controllers
         }
        
         [HttpGet]
-        public async Task<ActionResult> Delete(int id)
+        public ActionResult Delete(int id)
         {
-            var operation = await _courseService.DeleteByIdAsync(id);
+            var operation = _courseService.DeleteByIdAsync(id);
             if (operation.IsSuccessful)
             {
                 return this.RedirectToAction(x => x.Manage());

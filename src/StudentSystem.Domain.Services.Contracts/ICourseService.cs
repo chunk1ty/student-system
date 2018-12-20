@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 
 using StudentSystem.Common;
-using StudentSystem.Domain;
 
 namespace StudentSystem.Domain.Services.Contracts
 {
@@ -14,7 +13,7 @@ namespace StudentSystem.Domain.Services.Contracts
 
         OperationStatus<Course> Add(Course course);
 
-        Task<OperationStatus<int>> DeleteByIdAsync(int id);
+        OperationStatus<int> DeleteByIdAsync(int id);
 
         OperationStatus<Course> Update(Course course);
     }

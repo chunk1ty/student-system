@@ -9,5 +9,7 @@ namespace StudentSystem.Persistence.Contracts
         Task<Student> GetStudentWithCoursesByEmailAsync(string email);
 
         void Add(Student entity);
+
+        void UpdateCourse(Student student, Course course);
     }
 }

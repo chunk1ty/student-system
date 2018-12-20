@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 
 using StudentSystem.Common;
 using StudentSystem.Common.Constants;
+using StudentSystem.Common.Exception;
 using StudentSystem.Persistence.Contracts;
 using StudentSystem.Domain.Services.Contracts;
 using StudentSystem.Domain.Services.Contracts.Models;
@@ -48,10 +49,14 @@ namespace StudentSystem.Domain.Services
             if (course == null)
             {
                 //TODO exception or FailureStatus ?
-                return new FailureStatus<string>(ClientMessage.CourseDoesNotExist);
+                throw new DomainException();
+                //return new FailureStatus<string>(ClientMessage.CourseDoesNotExist);
             }
 
-            student.Courses.Add(course);
+            //TODO is it better to pass whole object instead of course id ?
+            //TODO many to many save ?
+            _studentRepository.EnrollInCourse(student, course);
+            
             _unitOfWork.Commit();
 
             return new SuccessStatus<string>(string.Empty);
@@ -74,6 +79,13 @@ namespace StudentSystem.Domain.Services
 
             //TODO StudentCourses is it in the correct assembly ?
             return new SuccessStatus<StudentCourses>(new StudentCourses(student.Courses, notEnrolledCourses));
+        }
+
+        public void Add(Student student)
+        {
+            _studentRepository.Add(student);
+
+            _unitOfWork.Commit();
         }
     }
 }

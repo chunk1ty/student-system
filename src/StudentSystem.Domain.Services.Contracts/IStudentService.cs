@@ -10,5 +10,7 @@ namespace StudentSystem.Domain.Services.Contracts
         Task<OperationStatus<string>> EnrollStudentInCourseAsync(string studentId, int courseId);
 
         Task<OperationStatus<StudentCourses>> GetStudentCourses(string email);
+
+        void Add(Student student);
     }
 }

@@ -1,21 +1,28 @@
 ﻿using System;
 using System.Data.Entity;
+using System.Threading;
 using System.Threading.Tasks;
+using MediatR;
 using StudentSystem.Common;
 using StudentSystem.Common.Constants;
+using StudentSystem.Domain;
+using StudentSystem.Domain.Services.Contracts;
 using StudentSystem.Infrastructure.Security;
 
 namespace StudentSystem.Authentication
 {
     public class AuthenticationService : IAuthenticationService
     {
+        //TODO wrap external libraries ?
+        private readonly IMediator _mediator;
         private readonly ICypher _cypher;
         private readonly StudentSystemAuthDbContext _studentSystemAuthDbContext;
 
-        public AuthenticationService(StudentSystemAuthDbContext studentSystemAuthDbContext, ICypher cypher)
+        public AuthenticationService(StudentSystemAuthDbContext studentSystemAuthDbContext, ICypher cypher, IMediator mediator)
         {
             _studentSystemAuthDbContext = studentSystemAuthDbContext;
             _cypher = cypher;
+            _mediator = mediator;
         }
 
         public async Task<OperationStatus<string>> LogInAsync(string email, string password)
@@ -71,8 +78,46 @@ namespace StudentSystem.Authentication
             _studentSystemAuthDbContext.Users.Add(new User { Email = email, Password = encryptPassword });
 
             _studentSystemAuthDbContext.SaveChanges();
+            
+            // TODO is it correct way to raise domain event ?
+            // TODO how to raise teacher domain event ?
+            // TODO should i have generic event which combine Student and Teacher entities ?
+            await _mediator.Publish(new StudentCreated(email,"FirstName " + email, "lastName" + email));
 
             return new SuccessStatus<string>(email);
+        }
+    }
+
+    public class StudentCreated : INotification
+    {
+        public StudentCreated(string email, string firstName, string lastName)
+        {
+            Email = email;
+            FirstName = firstName;
+            LastName = lastName;
+        }
+
+        public string Email { get; }
+
+        public string FirstName { get;  }
+
+        public string LastName { get; }
+    }
+
+    public class StudentCreatedHandler : INotificationHandler<StudentCreated>
+    {
+        private readonly IStudentService _studentService;
+
+        public StudentCreatedHandler(IStudentService studentService)
+        {
+            _studentService = studentService;
+        }
+
+        public Task Handle(StudentCreated notification, CancellationToken cancellationToken)
+        {
+            _studentService.Add(new Student() {Email = notification.Email, FirstName = "Andriyan", LastName = "Krastev"});
+
+            return Task.CompletedTask;
         }
     }
 }

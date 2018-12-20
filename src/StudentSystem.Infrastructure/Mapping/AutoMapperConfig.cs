@@ -55,8 +55,8 @@ namespace StudentSystem.Infrastructure.Mapping
 
             foreach (var map in maps)
             {
-                config.CreateMap(map.Source, map.Destination);
-                config.CreateMap(map.Destination, map.Source);
+                config.CreateMap(map.Source, map.Destination).PreserveReferences();
+                config.CreateMap(map.Destination, map.Source).PreserveReferences();
             }
         }
     }

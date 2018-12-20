@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 
 using StudentSystem.Common;
-using StudentSystem.Common.Constants;
 using StudentSystem.Persistence.Contracts;
 using StudentSystem.Domain.Services.Contracts;
 
@@ -53,20 +52,15 @@ namespace StudentSystem.Domain.Services
             return new SuccessStatus<Course>(course);
         }
 
-        public async Task<OperationStatus<int>> DeleteByIdAsync(int id)
+        public OperationStatus<int> DeleteByIdAsync(int id)
         {
             if (id <= 0)
             {
                 throw new ArgumentNullException("id cannot be less or equal to 0");
             }
 
-            var course = await _courseRepository.GetByIdAsync(id);
-            if (course == null)
-            {
-                return new FailureStatus<int>(ClientMessage.CourseDoesNotExist);
-            }
-
-            _courseRepository.Delete(course);
+            //TODO naming convension Delete vs DeleteById; and if i have to delete by multiple criteria DeleteByEmailAndFirstName ?
+            _courseRepository.Delete(id);
             _unitOfWork.Commit();
 
             return new SuccessStatus<int>(id);
