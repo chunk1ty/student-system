@@ -121,7 +121,7 @@ namespace StudentSystem.Clients.Mvc
             // That's it! Make sure to bind the handlers as needed.
           
 
-            kernel.Bind<INotificationHandler<StudentCreated>>().To<StudentCreatedHandler>();
+            kernel.Bind<INotificationHandler<AccountCreated>>().To<StudentCreatedHandler>();
         }
     }
 

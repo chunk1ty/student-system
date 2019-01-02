@@ -78,23 +78,21 @@ namespace StudentSystem.Authentication
             _studentSystemAuthDbContext.Users.Add(new User { Email = email, Password = encryptPassword });
 
             _studentSystemAuthDbContext.SaveChanges();
-            
-            // TODO is it correct way to raise domain event ?
-            // TODO how to raise teacher domain event ?
-            // TODO should i have generic event which combine Student and Teacher entities ?
-            await _mediator.Publish(new StudentCreated(email,"FirstName " + email, "lastName" + email));
+         
+            await _mediator.Publish(new AccountCreated(email,"FirstName " + email, "lastName" + email, Role.Student));
 
             return new SuccessStatus<string>(email);
         }
     }
 
-    public class StudentCreated : INotification
+    public class AccountCreated : INotification
     {
-        public StudentCreated(string email, string firstName, string lastName)
+        public AccountCreated(string email, string firstName, string lastName, Role role)
         {
             Email = email;
             FirstName = firstName;
             LastName = lastName;
+            Role = role;
         }
 
         public string Email { get; }
@@ -102,9 +100,17 @@ namespace StudentSystem.Authentication
         public string FirstName { get;  }
 
         public string LastName { get; }
+
+        public Role Role { get; }
     }
 
-    public class StudentCreatedHandler : INotificationHandler<StudentCreated>
+    public enum Role
+    {
+        Student,
+        Teacher
+    }
+
+    public class StudentCreatedHandler : INotificationHandler<AccountCreated>
     {
         private readonly IStudentService _studentService;
 
@@ -113,11 +119,14 @@ namespace StudentSystem.Authentication
             _studentService = studentService;
         }
 
-        public Task Handle(StudentCreated notification, CancellationToken cancellationToken)
+        public async Task Handle(AccountCreated notification, CancellationToken cancellationToken)
         {
-            _studentService.Add(new Student() {Email = notification.Email, FirstName = "Andriyan", LastName = "Krastev"});
+            if (notification.Role != Role.Student)
+            {
+                return;
+            }
 
-            return Task.CompletedTask;
+            _studentService.Add(new Student() {Email = notification.Email, FirstName = "Andriyan", LastName = "Krastev"});
         }
     }
 }
